@@ -43,7 +43,7 @@ public class DaoBook {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3)+ "  " + rs.getDouble(4)+ "  " + rs.getDate(5));
-				Book b = new Book(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDate(5));
+				Book b = new Book(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getString(5));
 				l.add(b);
 			}
 		} catch (Exception e) {

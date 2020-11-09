@@ -6,9 +6,9 @@ public class Book {
 	private int id;
 	private String title, author;
 	private double price;
-	private Date releaseDate;
+	private String releaseDate;
 
-	public Book(int id, String title, String author, double price, Date releaseDate) {
+	public Book(int id, String title, String author, double price, String releaseDate) {
 		this.id = id;
 		this.title = title;
 		this.author = author;
@@ -48,11 +48,11 @@ public class Book {
 		this.price = price;
 	}
 
-	public Date getReleaseDate() {
+	public String getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(Date releaseDate) {
+	public void setReleaseDate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 
