@@ -54,11 +54,12 @@ public class DaoBook {
 	}
 
 	/*********************************** Modifier un livre *****************************************/
-	public boolean updateBook(Book l) {
-		String titrelivre = l.getTitle();
-		Double prix = l.getPrice();
-		String date = l.getReleaseDate();
-		String auteur = l.getAuthor();
+	public boolean updateBook(int Id,String titre,String Auteur,Double price,String Date) {
+		String titrelivre = titre;
+		Double prix = price;
+		String date = Date;
+		String auteur = Auteur;
+		int id=Id;
 
 		boolean t = false;
 
@@ -68,7 +69,7 @@ public class DaoBook {
 			Statement st = cc.createStatement();
 
 			String requete = "  UPDATE book SET  title = '" + titrelivre + "',author = '" + auteur + "', price= '"
-					+ prix + "',releaseDate = '" + date + "' WHERE id= '" + l.getId() + "'";
+					+ prix + "',releaseDate = '" + date + "' WHERE id= '" + id + "'";
 
 			st.executeUpdate(requete);
 			t = true;
@@ -79,7 +80,7 @@ public class DaoBook {
 	}
 
 	/*********************************** Supprimer un livre *****************************************/
-	public boolean deleteBook(Book l) {
+	public boolean deleteBook(int id) {
 
 		boolean t = false;
 
@@ -88,7 +89,7 @@ public class DaoBook {
 			cc = Singleton.getConnection();
 			Statement st = cc.createStatement();
 
-			String requete = "DELETE FROM book where id='" + l.getId() + "'";
+			String requete = "DELETE FROM book where id='" + id + "'";
 
 			st.executeUpdate(requete);
 			t = true;
