@@ -71,8 +71,8 @@ public class Acceuil extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Ajouter ajout = new Ajouter();
 				ajout.setVisible(true); 
-				Acceuil frame = new Acceuil();
-				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+				/*Acceuil frame = new Acceuil();
+				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));*/
 			}
 		});
 		btnAjout.setBounds(426, 214, 252, 47);

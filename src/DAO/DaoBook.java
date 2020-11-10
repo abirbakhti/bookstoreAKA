@@ -20,8 +20,8 @@ public class DaoBook {
 		boolean test = false ;
 		try {
 			stmt = Singleton.getConnection()
-					.prepareStatement("insert into book (id,title,author,price,releaseDate) " + "values('"
-							+ book.getId() + "','" + book.getTitle() + "','" + book.getAuthor() + "','"
+					.prepareStatement("insert into book (title,author,price,releaseDate) " + "values('"
+							+ book.getTitle() + "','" + book.getAuthor() + "','"
 							+ book.getPrice() + "','" + book.getReleaseDate() + "')");
 			int ajout = stmt.executeUpdate();
 			if (ajout != 0)
