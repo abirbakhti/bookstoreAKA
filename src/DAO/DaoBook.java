@@ -12,9 +12,12 @@ public class DaoBook {
 	 * Book(1,"hhhhh","hhhhh",148,"2000-05-05"); DaoBook bb = new DaoBook();
 	 * bb.deleteBook(b); }
 	 */
+	
+	  
 	/*********************************** Ajouter un livre *****************************************/
-	public void addBook(Book book) {
+	public boolean addBook(Book book) {
 		PreparedStatement stmt = null;
+		boolean test = false ;
 		try {
 			stmt = Singleton.getConnection()
 					.prepareStatement("insert into book (id,title,author,price,releaseDate) " + "values('"
@@ -22,13 +25,13 @@ public class DaoBook {
 							+ book.getPrice() + "','" + book.getReleaseDate() + "')");
 			int ajout = stmt.executeUpdate();
 			if (ajout != 0)
-				System.out.println("Book added");
-			else
-				System.out.println("Error");
+				test=true;
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		return test ;
 	}
+	
 
 	/*********************************** Lister un livre *****************************************/
 	public List<Book> listBook() {

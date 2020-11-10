@@ -1,6 +1,6 @@
 package GUI;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,6 +17,10 @@ import java.awt.Font;
 
 public class Acceuil extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
