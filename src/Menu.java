@@ -1,4 +1,4 @@
-package Main;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import DAO.DaoBook;
-import Entities.Book;
+import ENTITIES.Book;
 
 public class Menu {
 

@@ -4,26 +4,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entities.Book;
+import ENTITIES.Book;
 
 public class DaoBook {
-	public Connection connexion() {
-		Connection con = null;
-		try {  			
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore", "root", "");  		
-			} 
-		catch (Exception e) { 			
-			System.out.println(e);		
-			}
-		return con;
-	}
-	
+	/*
+	 * public static void main (String[] a) { Book b = new
+	 * Book(1,"hhhhh","hhhhh",148,"2000-05-05"); DaoBook bb = new DaoBook();
+	 * bb.deleteBook(b); }
+	 */
+	/*********************************** Ajouter un livre *****************************************/
 	public void addBook(Book book) {
 		PreparedStatement stmt = null;
 		try {
-			stmt = connexion().prepareStatement("insert into book (id,title,author,price,releaseDate) "
-					+ "values('" + book.getId() + "','" + book.getTitle() +  "','" + book.getAuthor() +  "','" + book.getPrice() 
-					+  "','" + book.getReleaseDate()+"')");
+			stmt = Singleton.getConnection()
+					.prepareStatement("insert into book (id,title,author,price,releaseDate) " + "values('"
+							+ book.getId() + "','" + book.getTitle() + "','" + book.getAuthor() + "','"
+							+ book.getPrice() + "','" + book.getReleaseDate() + "')");
 			int ajout = stmt.executeUpdate();
 			if (ajout != 0)
 				System.out.println("Book added");
@@ -33,17 +29,19 @@ public class DaoBook {
 			System.out.println(e);
 		}
 	}
-	
-	public List<Book> listBook(){
+
+	/*********************************** Lister un livre *****************************************/
+	public List<Book> listBook() {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		List<Book> l= new ArrayList<>();
+		List<Book> l = new ArrayList<>();
 		try {
-			stmt = connexion().prepareStatement("select * from book");
+			stmt = Singleton.getConnection().prepareStatement("select * from book");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3)+ "  " + rs.getDouble(4)+ "  " + rs.getDate(5));
-				Book b = new Book(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getString(5));
+				// System.out.println(rs.getInt(1) + " " + rs.getString(2) + " " +
+				// rs.getString(3)+ " " + rs.getDouble(4)+ " " + rs.getDate(5));
+				Book b = new Book(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5));
 				l.add(b);
 			}
 		} catch (Exception e) {
@@ -51,4 +49,50 @@ public class DaoBook {
 		}
 		return l;
 	}
+
+	/*********************************** Modifier un livre *****************************************/
+	public boolean updateBook(Book l) {
+		String titrelivre = l.getTitle();
+		Double prix = l.getPrice();
+		String date = l.getReleaseDate();
+		String auteur = l.getAuthor();
+
+		boolean t = false;
+
+		try {
+			Connection cc = null;
+			cc = Singleton.getConnection();
+			Statement st = cc.createStatement();
+
+			String requete = "  UPDATE book SET  title = '" + titrelivre + "',author = '" + auteur + "', price= '"
+					+ prix + "',releaseDate = '" + date + "' WHERE id= '" + l.getId() + "'";
+
+			st.executeUpdate(requete);
+			t = true;
+		} catch (SQLException x) {
+			System.out.println(x.getMessage());
+		}
+		return t;
+	}
+
+	/*********************************** Supprimer un livre *****************************************/
+	public boolean deleteBook(Book l) {
+
+		boolean t = false;
+
+		try {
+			Connection cc = null;
+			cc = Singleton.getConnection();
+			Statement st = cc.createStatement();
+
+			String requete = "DELETE FROM book where id='" + l.getId() + "'";
+
+			st.executeUpdate(requete);
+			t = true;
+		} catch (SQLException x) {
+			System.out.println(x.getMessage());
+		}
+		return t;
+	}
+
 }
