@@ -12,8 +12,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.JLabel;
 
 public class Acceuil extends JFrame {
 
@@ -62,17 +64,23 @@ public class Acceuil extends JFrame {
 		panel.add(panel_1);
 		
 		JButton btnAjout = new JButton("Ajouter un livre\r\n");
+		btnAjout.setBackground(new Color(0, 0, 139));
+		btnAjout.setForeground(Color.WHITE);
 		btnAjout.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnAjout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ajouter ajout = new Ajouter();
 				ajout.setVisible(true); 
+				Acceuil frame = new Acceuil();
+				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 			}
 		});
-		btnAjout.setBounds(431, 140, 252, 47);
+		btnAjout.setBounds(426, 214, 252, 47);
 		panel.add(btnAjout);
 		
 		JButton btnList = new JButton("Lister les livres\r\n");
+		btnList.setBackground(new Color(0, 0, 139));
+		btnList.setForeground(Color.WHITE);
 		btnList.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -80,7 +88,18 @@ public class Acceuil extends JFrame {
 				list.setVisible(true); 
 			}
 		});
-		btnList.setBounds(431, 239, 252, 47);
+		btnList.setBounds(426, 321, 252, 47);
 		panel.add(btnList);
+		
+		JLabel lbMenu = new JLabel("Menu ");
+		lbMenu.setForeground(new Color(0, 0, 139));
+		lbMenu.setFont(new Font("Traditional Arabic", Font.BOLD | Font.ITALIC, 43));
+		lbMenu.setBounds(476, 119, 266, 47);
+		panel.add(lbMenu);
+		
+		JLabel lbBienvenue = new JLabel("Bienvenue a notre bookstore");
+		lbBienvenue.setFont(new Font("Traditional Arabic", Font.BOLD | Font.ITALIC, 31));
+		lbBienvenue.setBounds(344, 23, 425, 47);
+		panel.add(lbBienvenue);
 	}
 }
