@@ -1,7 +1,7 @@
 package GUI;
 
 
-import java.awt.AWTEvent;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -24,8 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 public class Lister extends JFrame {
 
 	/**
@@ -40,8 +42,9 @@ public class Lister extends JFrame {
 	private JTextField textFieldPrix;
 	private JTextField textFieldDate;
 	DefaultTableModel model ;
-    private List<Book> listBook = new ArrayList<>();
+
     private DaoBook dao = new DaoBook();
+   
 	/**
 	 * Launch the application.
 	 */
@@ -61,6 +64,10 @@ public class Lister extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public void close() {
+		WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
+	}
 	
 	 public DefaultTableModel loadList() {
 		 String columns[] = { "ID", "Titre", "Auteur", "Prix", "Date" };
@@ -83,7 +90,8 @@ public class Lister extends JFrame {
 	   }
 	
 	public Lister() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Lister");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -165,9 +173,11 @@ public class Lister extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int i=table.getSelectedRow();
 				if(i>=0) {
-					dao.deleteBook(Integer.parseInt(model.getValueAt(i, 0).toString()));
-					JOptionPane.showMessageDialog(null, "Supprimer avec succees");
-				    table.setModel(loadList());
+					if(dao.deleteBook(Integer.parseInt(model.getValueAt(i, 0).toString()))) {
+						JOptionPane.showMessageDialog(null, "Supprime avec succees");
+					    table.setModel(loadList());
+					}else
+						JOptionPane.showMessageDialog(null, "Erreur de serveur");
 				}else {
 					JOptionPane.showMessageDialog(null, "Selectioner un livre");
 				}
@@ -211,8 +221,24 @@ public class Lister extends JFrame {
 		//modifier
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dao.updateBook(Integer.parseInt(textFieldId.getText()), textFieldTitre.getText(), textFieldAuteur.getText(),Double.parseDouble(textFieldPrix.getText()), textFieldDate.getText());
-				JOptionPane.showMessageDialog(null, "modifie avec succees");
+				if (!textFieldTitre.getText().equals("") && !textFieldAuteur.getText().equals("")
+						&& !textFieldPrix.getText().equals("") && !textFieldDate.getText().equals("")) {
+					Book book = new Book(Integer.parseInt(textFieldId.getText()), textFieldTitre.getText(), textFieldAuteur.getText(),
+							Double.parseDouble(textFieldPrix.getText()), textFieldDate.getText());
+
+					if (dao.updateBook(book)) {
+						JOptionPane.showMessageDialog(null, "Livre a été modifié avec succès");
+						textFieldTitre.setText("");
+						textFieldAuteur.setText("");
+						textFieldPrix.setText("");
+						textFieldDate.setText("");
+					} else {
+						JOptionPane.showMessageDialog(null, "Erreur de saisie ");
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Selectioner un livre");
+				}
 			    table.setModel(loadList());
 			}
 		});
@@ -225,8 +251,11 @@ public class Lister extends JFrame {
 		panel.add(btnRetour);
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				close();
 				Acceuil acceuil = new Acceuil();
 				acceuil.setVisible(true);
+				
+				
 			}
 		});
 	}

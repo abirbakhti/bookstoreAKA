@@ -4,7 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
+
 
 import DAO.DaoBook;
 import ENTITIES.Book;
@@ -15,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -51,8 +54,13 @@ public class Ajouter extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public void close() {
+		WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
+	}
 	public Ajouter() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Ajouter");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);
 		getContentPane().setLayout(null);
 
@@ -125,9 +133,10 @@ public class Ajouter extends JFrame {
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				close();
 				Acceuil acceuil = new Acceuil();
 				acceuil.setVisible(true);
-
+				
 			}
 		});
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 15));

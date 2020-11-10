@@ -54,12 +54,12 @@ public class DaoBook {
 	}
 
 	/*********************************** Modifier un livre *****************************************/
-	public boolean updateBook(int Id,String titre,String Auteur,Double price,String Date) {
-		String titrelivre = titre;
-		Double prix = price;
-		String date = Date;
-		String auteur = Auteur;
-		int id=Id;
+	public boolean updateBook(Book book) {
+		String titrelivre = book.getTitle();
+		Double prix = book.getPrice();
+		String date = book.getReleaseDate();
+		String auteur = book.getAuthor();
+		
 
 		boolean t = false;
 
@@ -69,7 +69,7 @@ public class DaoBook {
 			Statement st = cc.createStatement();
 
 			String requete = "  UPDATE book SET  title = '" + titrelivre + "',author = '" + auteur + "', price= '"
-					+ prix + "',releaseDate = '" + date + "' WHERE id= '" + id + "'";
+					+ prix + "',releaseDate = '" + date + "' WHERE id= '" + book.getId() + "'";
 
 			st.executeUpdate(requete);
 			t = true;
