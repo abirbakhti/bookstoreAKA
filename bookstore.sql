@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 09 nov. 2020 à 17:17
+-- Généré le : mer. 11 nov. 2020 à 15:59
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.2.34
 
@@ -32,17 +32,19 @@ CREATE TABLE `book` (
   `title` varchar(50) NOT NULL,
   `author` varchar(50) NOT NULL,
   `price` double NOT NULL,
-  `releaseDate` date NOT NULL
+  `releaseDate` date NOT NULL,
+  `Image` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `book`
 --
 
-INSERT INTO `book` (`id`, `title`, `author`, `price`, `releaseDate`) VALUES
-(1, 'OCA', 'karim', 300, '2020-11-10'),
-(2, 'OCP', 'abir', 5000, '2000-01-01'),
-(15, 'OCP', 'Abir', 2000, '2000-01-01');
+INSERT INTO `book` (`id`, `title`, `author`, `price`, `releaseDate`, `Image`) VALUES
+(506, 'karim', 'karim', 154, '2000-01-05', ''),
+(508, 'zzzzzzzz', 'zzzzzzzzzzzzzz', 2000, '2000-01-01', 0x6a6176612e696f2e46696c65496e70757453747265616d403665386464616661),
+(512, 'SWING', 'abir', 154, '2019-04-04', 0x6a6176612e696f2e46696c65496e70757453747265616d403537336537376339),
+(513, 'ffff', 'kkkk', 154, '2000-02-05', 0x6a6176612e696f2e46696c65496e70757453747265616d403561626237393532);
 
 --
 -- Index pour les tables déchargées
@@ -62,7 +64,7 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT pour la table `book`
 --
 ALTER TABLE `book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=514;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
