@@ -5,7 +5,6 @@
  */
 package DAO;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,21 +16,14 @@ import java.sql.SQLException;
 public class Singleton {
       
    private static  Connection con = null;
-
-
-
-
+   
     public static Connection connecter()
     {
-	
 	try {
 		Class.forName("com.mysql.jdbc.Driver");
-                
                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/bookstore","root","");
-            
-	    }catch(ClassNotFoundException e) 
-	    
-            {System.out.println(e.getMessage());
+	    }catch(ClassNotFoundException e) {
+	    	System.out.println(e.getMessage());
 	      }catch (SQLException e) {
 		e.printStackTrace();
 	      }

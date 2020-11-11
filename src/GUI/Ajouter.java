@@ -24,7 +24,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class Ajouter extends JFrame {
-
 	/**
 	 * 
 	 */
@@ -58,6 +57,7 @@ public class Ajouter extends JFrame {
 		WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
 	}
+	
 	public Ajouter() {
 		setTitle("Ajouter");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -79,7 +79,7 @@ public class Ajouter extends JFrame {
 		JLabel lbTitre = new JLabel("Titre :");
 		lbTitre.setForeground(Color.WHITE);
 		lbTitre.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lbTitre.setBounds(60, 158, 166, 26);
+		lbTitre.setBounds(60, 157, 166, 26);
 		panel_1.add(lbTitre);
 
 		JLabel lbAuteur = new JLabel("Auteur :");
@@ -109,21 +109,21 @@ public class Ajouter extends JFrame {
 							Double.parseDouble(textFieldPrix.getText()), textFieldDate.getText());
 
 					if (dao.addBook(book)) {
-						JOptionPane.showMessageDialog(null, "Livre a été ajouté avec succès");
+						JOptionPane.showMessageDialog(null, "Livre ajouté avec succès");
 						textFieldTitre.setText("");
 						textFieldAuteur.setText("");
 						textFieldPrix.setText("");
 						textFieldDate.setText("");
 					} else {
-						JOptionPane.showMessageDialog(null, "Verfifier les donnees");
+						JOptionPane.showMessageDialog(null, "Vérfifier les données");
 					}
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Remplir tous les champs");
 				}
-
 			}
 		});
+		
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnAjouter.setBackground(new Color(0, 0, 139));
 		btnAjouter.setForeground(Color.WHITE);
@@ -136,7 +136,6 @@ public class Ajouter extends JFrame {
 				close();
 				Acceuil acceuil = new Acceuil();
 				acceuil.setVisible(true);
-				
 			}
 		});
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -165,10 +164,10 @@ public class Ajouter extends JFrame {
 		textFieldDate.setBounds(266, 317, 497, 26);
 		panel.add(textFieldDate);
 
-		JLabel lbAjouterUnLivre = new JLabel("Ajouter Un Livre ");
+		JLabel lbAjouterUnLivre = new JLabel("Ajouter Un Livre");
 		lbAjouterUnLivre.setForeground(new Color(0, 0, 139));
 		lbAjouterUnLivre.setFont(new Font("Traditional Arabic", Font.BOLD | Font.ITALIC, 31));
-		lbAjouterUnLivre.setBounds(383, 37, 266, 26);
+		lbAjouterUnLivre.setBounds(400, 49, 266, 33);
 		panel.add(lbAjouterUnLivre);
 	}
 }

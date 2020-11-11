@@ -1,7 +1,5 @@
 package GUI;
 
-
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import DAO.DaoBook;
 
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -76,17 +76,14 @@ public class Lister extends JFrame {
 		  String data[][] = new String[l.size()][5];
 		  int x=0;
 		  for (int i = 0 ; i < l.size();i++) {
-		
 			  data[x][0]= String.valueOf( l.get(i).getId());
 			  data[x][1]= l.get(i).getTitle();
 			  data[x][2]= l.get(i).getAuthor();
 			  data[x][3]= String.valueOf(l.get(i).getPrice());	
 			  data[x][4]= l.get(i).getReleaseDate();
 			  x++; 
-			 
 			  }
 		  return model = new DefaultTableModel(data, columns);
-		   
 	   }
 	
 	public Lister() {
@@ -103,7 +100,7 @@ public class Lister extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		//selectioner un ligne du tableau 
+		//selectioner une ligne du tableau 
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -113,6 +110,10 @@ public class Lister extends JFrame {
 				textFieldAuteur.setText(model.getValueAt(i,2).toString());
 				textFieldPrix.setText(model.getValueAt(i,3).toString());
 				textFieldDate.setText(model.getValueAt(i,4).toString());
+				textFieldTitre.setEnabled(true);
+				textFieldAuteur.setEnabled(true);
+				textFieldPrix.setEnabled(true);
+				textFieldDate.setEnabled(true);
 			}
 		});
 		scrollPane.setViewportView(table);
@@ -133,21 +134,25 @@ public class Lister extends JFrame {
 		panel_1.setLayout(null);
 		
 		textFieldDate = new JTextField();
+		textFieldDate.setEnabled(false);
 		textFieldDate.setBounds(109, 242, 179, 29);
 		panel_1.add(textFieldDate);
 		textFieldDate.setColumns(10);
 		
 		textFieldPrix = new JTextField();
+		textFieldPrix.setEnabled(false);
 		textFieldPrix.setBounds(109, 190, 179, 29);
 		panel_1.add(textFieldPrix);
 		textFieldPrix.setColumns(10);
 		
 		textFieldAuteur = new JTextField();
+		textFieldAuteur.setEnabled(false);
 		textFieldAuteur.setBounds(109, 139, 179, 29);
 		panel_1.add(textFieldAuteur);
 		textFieldAuteur.setColumns(10);
 		
 		textFieldTitre = new JTextField();
+		textFieldTitre.setEnabled(false);
 		textFieldTitre.setBounds(109, 93, 179, 29);
 		panel_1.add(textFieldTitre);
 		textFieldTitre.setColumns(10);
@@ -158,14 +163,12 @@ public class Lister extends JFrame {
 		panel_1.add(textFieldId);
 		textFieldId.setColumns(10);
 		
-		
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnModifier.setBackground(new Color(173, 216, 230));
 		btnModifier.setForeground(new Color(0, 0, 139));
-		btnModifier.setBounds(36, 306, 252, 46);
+		btnModifier.setBounds(75, 319, 213, 46);
 		panel_1.add(btnModifier);
-		
 		
 		JButton btnSupp = new JButton("Supprimer");
 		//supprimer
@@ -174,19 +177,27 @@ public class Lister extends JFrame {
 				int i=table.getSelectedRow();
 				if(i>=0) {
 					if(dao.deleteBook(Integer.parseInt(model.getValueAt(i, 0).toString()))) {
-						JOptionPane.showMessageDialog(null, "Supprime avec succees");
+						JOptionPane.showMessageDialog(null, "Liver supprimé avec succès");
 					    table.setModel(loadList());
+						textFieldTitre.setText("");
+						textFieldAuteur.setText("");
+						textFieldPrix.setText("");
+						textFieldDate.setText("");
+						textFieldTitre.setEnabled(false);
+						textFieldAuteur.setEnabled(false);
+						textFieldPrix.setEnabled(false);
+						textFieldDate.setEnabled(false);
 					}else
-						JOptionPane.showMessageDialog(null, "Erreur de serveur");
+						JOptionPane.showMessageDialog(null, "Erreur du serveur");
 				}else {
-					JOptionPane.showMessageDialog(null, "Selectioner un livre");
+					JOptionPane.showMessageDialog(null, "Sélectionner un livre à supprimer");
 				}
 			}
 		});
 		btnSupp.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnSupp.setBackground(new Color(173, 216, 230));
 		btnSupp.setForeground(new Color(0, 0, 139));
-		btnSupp.setBounds(36, 380, 252, 46);
+		btnSupp.setBounds(75, 387, 213, 46);
 		panel_1.add(btnSupp);
 		
 		JLabel lblTitre = new JLabel("Titre : ");
@@ -213,11 +224,28 @@ public class Lister extends JFrame {
 		lblDate.setBounds(20, 242, 79, 27);
 		panel_1.add(lblDate);
 		
-		JLabel lblId = new JLabel("Id :");
+		JLabel lblId = new JLabel("ID :");
 		lblId.setForeground(Color.WHITE);
 		lblId.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblId.setBounds(20, 44, 79, 27);
 		panel_1.add(lblId);
+		
+		JLabel lbModifier = new JLabel("");
+		lbModifier.setForeground(Color.WHITE);
+		lbModifier.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lbModifier.setBounds(20, 305, 45, 71);
+		panel_1.add(lbModifier);
+		Image iconModifier=new ImageIcon(this.getClass().getResource("/edit.png")).getImage();
+		lbModifier.setIcon(new ImageIcon(iconModifier));
+		
+		JLabel lbSupprimer = new JLabel("");
+		lbSupprimer.setForeground(Color.WHITE);
+		lbSupprimer.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lbSupprimer.setBounds(20, 376, 45, 71);
+		panel_1.add(lbSupprimer);
+		Image iconSupp=new ImageIcon(this.getClass().getResource("/iconSupp.png")).getImage();
+		lbSupprimer.setIcon(new ImageIcon(iconSupp));
+		
 		//modifier
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -227,17 +255,21 @@ public class Lister extends JFrame {
 							Double.parseDouble(textFieldPrix.getText()), textFieldDate.getText());
 
 					if (dao.updateBook(book)) {
-						JOptionPane.showMessageDialog(null, "Livre a été modifié avec succès");
+						JOptionPane.showMessageDialog(null, "Livre modifié avec succès");
 						textFieldTitre.setText("");
 						textFieldAuteur.setText("");
 						textFieldPrix.setText("");
 						textFieldDate.setText("");
+						textFieldTitre.setEnabled(false);
+						textFieldAuteur.setEnabled(false);
+						textFieldPrix.setEnabled(false);
+						textFieldDate.setEnabled(false);
 					} else {
-						JOptionPane.showMessageDialog(null, "Erreur de saisie ");
+						JOptionPane.showMessageDialog(null, "Erreur de saisie");
 					}
 
 				} else {
-					JOptionPane.showMessageDialog(null, "Selectioner un livre");
+					JOptionPane.showMessageDialog(null, "Sélectionner un livre à modifier");
 				}
 			    table.setModel(loadList());
 			}
@@ -247,15 +279,13 @@ public class Lister extends JFrame {
 		btnRetour.setForeground(Color.WHITE);
 		btnRetour.setBackground(new Color(0, 0, 139));
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnRetour.setBounds(630, 387, 155, 46);
+		btnRetour.setBounds(588, 388, 213, 46);
 		panel.add(btnRetour);
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				close();
 				Acceuil acceuil = new Acceuil();
 				acceuil.setVisible(true);
-				
-				
 			}
 		});
 	}
