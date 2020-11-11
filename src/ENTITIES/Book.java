@@ -2,19 +2,33 @@ package ENTITIES;
 
 import java.util.Date;
 
+import javax.swing.ImageIcon;
+
 public class Book {
 	private int id;
 	private String title, author;
 	private double price;
 	private String releaseDate;
-
-	public Book(int id, String title, String author, double price, String releaseDate) {
+	private byte[] image ;
+	public Book(int id, String title, String author, double price, String releaseDate, byte[] bs) {
 		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.price = price;
 		this.releaseDate = releaseDate;
+		this.image = bs ;
 	}
+
+	
+	public byte[] getImage() {
+		return image;
+	}
+
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
 
 	public int getId() {
 		return id;

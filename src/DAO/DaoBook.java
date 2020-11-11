@@ -1,8 +1,16 @@
 package DAO;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 import ENTITIES.Book;
 
@@ -14,15 +22,18 @@ public class DaoBook {
 	 */
 	
 	  
-	/*********************************** Ajouter un livre *****************************************/
-	public boolean addBook(Book book) {
+	/*********************************** Ajouter un livre 
+	 * @throws FileNotFoundException *****************************************/
+	public boolean addBook(Book book,String s) {
 		PreparedStatement stmt = null;
 		boolean test = false ;
+	
 		try {
+			InputStream img = new FileInputStream(new File(s));
 			stmt = Singleton.getConnection()
-					.prepareStatement("insert into book (title,author,price,releaseDate) " + "values('"
+					.prepareStatement("insert into book (title,author,price,releaseDate,image) " + "values('"
 							+ book.getTitle() + "','" + book.getAuthor() + "','"
-							+ book.getPrice() + "','" + book.getReleaseDate() + "')");
+							+ book.getPrice() + "','" + book.getReleaseDate() + "','" + img + "')");
 			int ajout = stmt.executeUpdate();
 			if (ajout != 0)
 				test=true;
@@ -38,13 +49,17 @@ public class DaoBook {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<Book> l = new ArrayList<>();
+		
 		try {
 			stmt = Singleton.getConnection().prepareStatement("select * from book");
 			rs = stmt.executeQuery();
+			
 			while (rs.next()) {
-				// System.out.println(rs.getInt(1) + " " + rs.getString(2) + " " +
+				//System.out.println(rs.getBytes(6) );
 				// rs.getString(3)+ " " + rs.getDouble(4)+ " " + rs.getDate(5));
-				Book b = new Book(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5));
+		
+				
+				Book b = new Book(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5), rs.getBytes(6) );
 				l.add(b);
 			}
 		} catch (Exception e) {

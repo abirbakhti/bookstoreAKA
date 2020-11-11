@@ -49,7 +49,7 @@ public class Menu {
 				
 				String date = s.next();
 				
-				Dao.addBook(new Book(id,titre,auteur,prix,date));
+				Dao.addBook(new Book(id,titre,auteur,prix,date,null),null);
 			}
 				break;
 			}
