@@ -31,7 +31,7 @@ public class ChoisirLivre extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	DefaultTableModel model;
-	private List<Book> livreChoisi = new ArrayList<>();
+	public static List<Book> livreChoisi = new ArrayList<>();
 
 	private DaoBook dao = new DaoBook();
 
@@ -125,6 +125,9 @@ public class ChoisirLivre extends JFrame {
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				close();
+				ListerCommande c = new ListerCommande();
+				c.setVisible(true);
 			}
 		});
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -148,6 +151,7 @@ public class ChoisirLivre extends JFrame {
 				close();
 				Panier p = new Panier();
 				p.setVisible(true);
+				
 			}
 		});
 		btnPanier.setForeground(Color.WHITE);

@@ -13,12 +13,16 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.DaoCommande;
 import ENTITIES.Book;
+import ENTITIES.Commande;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -26,7 +30,11 @@ import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListerCommande extends JFrame {
 
@@ -35,7 +43,7 @@ public class ListerCommande extends JFrame {
 	DefaultTableModel model1;
 	private JTable table;
 	private JTable table_1;
-	
+	private DaoCommande daoCommande ;
 	
 
 	/**
@@ -63,29 +71,49 @@ public class ListerCommande extends JFrame {
 	
 	public void loadList(int i ) 
 	{
+		
 		String columns[] = { "ID", "Date" ,"Prix Totale"};
 		
 		String columns1[] = { "Nom du livre", "Quantite " ,"Prix "};
 		
-		Object data[][] = new Object[2][3];
-		//exemple
-		data[0][0] = "122";
-		data[0][1] = "2000-02-02";
-		data[0][2] = "13.000";
-		//exemple
-		data[1][0] = "400";
-		data[1][1] = "2000-02-02";
-		data[1][2] = "13.000";
+		//Object data[][] = new Object[2][3];
+		daoCommande= new DaoCommande();
+		List<Commande> listCommandeClient = daoCommande.listCommandeClient(1);
+		
+		Object data[][] = new Object[listCommandeClient.size()][3];
+		int x = 0;
+
+		for (int j = 0; j < listCommandeClient.size(); j++) {
+		
+			data[x][0] =  listCommandeClient.get(j).getId();
+			data[x][1] = listCommandeClient.get(j).getDateCommande();
+			data[x][2] =listCommandeClient.get(j).getPrix();
+			x++;
+		}
 		
 		// row selected ==> i 
 		//data [i][0]
 		//select from command where id_command=" "
 		
-		Object data2[][] = new Object[1][3];
-		//exemple
-		data2[0][0] = data[i][0];
-		data2[0][1] = "2000-02-02";
-		data2[0][2] = "13.000";
+		
+		 int a = (int) data[i][0];
+		 HashMap<Book, Integer> lhm = new HashMap<Book, Integer>();
+		 lhm = daoCommande.listLivresCommande(a);
+		 Object data2[][] = new Object[lhm.size()][3];
+		 x = 0;
+
+			for (Book b : lhm.keySet()){
+			
+				data2[x][0] =  b.getTitle();
+				data2[x][1] = lhm.get(b);
+				data2[x][2] =b.getPrice();
+				x++;
+			//	System.out.println(b.getTitle()+" "+lhm.get(b)+" "+b.getPrice());
+			}
+		 
+		 
+		
+		
 
 		model = new DefaultTableModel(data,columns);
 		table.setModel(model);
@@ -94,9 +122,12 @@ public class ListerCommande extends JFrame {
 	}
 	
 	
-	
+	public void close() {
+		WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
+	}
 	public ListerCommande() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -118,6 +149,13 @@ public class ListerCommande extends JFrame {
 		panel.add(btnNewButton);
 		
 		JButton btnAjouterUneCommande = new JButton("Ajouter une commande");
+		btnAjouterUneCommande.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				close();
+				ChoisirLivre cl = new ChoisirLivre();
+				cl.setVisible(true);
+			}
+		});
 		btnAjouterUneCommande.setBackground(new Color(0, 0, 139));
 		btnAjouterUneCommande.setForeground(Color.WHITE);
 		btnAjouterUneCommande.setFont(new Font("Tahoma", Font.BOLD, 15));

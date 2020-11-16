@@ -7,11 +7,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import ENTITIES.Book;
 
 import java.awt.Color;
 
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.TextField;
 import java.awt.Toolkit;
 
 import javax.swing.JLabel;
@@ -19,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -27,7 +30,9 @@ public class Panier extends JFrame {
 	private JPanel contentPane;
 	DefaultTableModel model;
 	private JTable table;
-	private JTextField textField;
+	private JTextField textField ;
+	
+	
 	
 	/**
 	 * Launch the application.
@@ -45,13 +50,29 @@ public class Panier extends JFrame {
 		});
 	}
 
+
 	public DefaultTableModel loadList() {
-		String columns[] = {"Livre", "Quantité", "Prix", "Date commande"};
-		Object[][] data = {
-			    {"Test", 1, 100.0, "2020-11-16"},
-			    {"Java", 1, 200.0, "2020-11-16"},
-			    {"OCA", 1, 300.0, "2020-11-16"},
-			};
+		
+	
+		
+		String columns[] = {"Livre", "Prix", "Quantité"};
+		Object data[][] = new Object[ChoisirLivre.livreChoisi .size()][3];
+		int x = 0;
+        Double prixt = 0.0 ;
+      
+		for (int j = 0; j < ChoisirLivre.livreChoisi .size(); j++) {
+		
+			data[x][0] =  ChoisirLivre.livreChoisi .get(j).getTitle();
+			data[x][1] = ChoisirLivre.livreChoisi .get(j).getPrice();
+			data[x][2] =1;
+			
+			prixt = prixt +((Double)data[x][1] * (int) data[x][2]);
+			x++;
+			
+			
+		}
+		textField = new JTextField();
+		textField.setText(String.valueOf(prixt)); 
 		return model = new DefaultTableModel(data, columns);
 	}
 	
@@ -121,7 +142,7 @@ public class Panier extends JFrame {
 		lbPrixTotal.setForeground(new Color(0, 0, 139));
 		lbPrixTotal.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		textField = new JTextField();
+	
 		textField.setBounds(613, 210, 168, 26);
 		contentPane.add(textField);
 		textField.setColumns(10);
