@@ -39,7 +39,7 @@ public class DaoCommande {
 		}
 	}
 
-	public static List<Commande> listCommandeClient() {
+	public List<Commande> listCommandeClient() {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<Commande> l = new ArrayList<>();
@@ -58,7 +58,7 @@ public class DaoCommande {
 		return l;
 	}
 	
-	public static HashMap<Book, Integer> listLivresCommande(int idCommande) {
+	public HashMap<Book, Integer> listLivresCommande(int idCommande) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		HashMap<Book, Integer> lb = new HashMap<Book, Integer>();
@@ -76,6 +76,24 @@ public class DaoCommande {
 			System.out.println(e);
 		}
 		return lb;
+	}
+	
+	public List<Integer> listId() {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Integer> l = new ArrayList<>();
+		
+		try {
+			stmt = Singleton.getConnection().prepareStatement("SELECT DISTINCT(idCommande) FROM `commande` ");
+			rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				l.add(rs.getInt("idCommande"));
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return l;
 	}
 
 }

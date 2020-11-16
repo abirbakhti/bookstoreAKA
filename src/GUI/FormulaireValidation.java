@@ -19,6 +19,8 @@ import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.WindowEvent;
+import java.util.List;
+import java.util.Random;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -107,9 +109,17 @@ public class FormulaireValidation extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int id = daoClient.ajouterClient(new Client(0,textField.getText().toString(),textField_1.getText().toString(),
 						textField_2.getText().toString(),textField_3.getText().toString(),textField_4.getText().toString()));
-			    System.out.println(Panier.lb);
-			    System.out.println(Panier.prixt);
-				daoCommande.addCommande(new Commande(20,Panier.lb,Panier.prixt,id));
+			  
+			    
+			    Random r = new Random();
+			    int n;
+		       
+		        List<Integer> l = daoCommande.listId();
+		        do {
+		         n = r.nextInt(99999);
+		        }while (l.contains(n) == true) ;
+				
+		        daoCommande.addCommande(new Commande(n,Panier.lb,Panier.prixt,id));
 				
 				close();
 				ListerCommande lc = new ListerCommande();
