@@ -17,6 +17,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JList;
 
 public class Acceuil extends JFrame {
 
