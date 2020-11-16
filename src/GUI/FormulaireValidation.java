@@ -105,8 +105,8 @@ public class FormulaireValidation extends JFrame {
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				close();
-				Commander commander = new Commander();
-				commander.setVisible(true);
+				Panier panier = new Panier();
+				panier.setVisible(true);
 			}
 		});
 		

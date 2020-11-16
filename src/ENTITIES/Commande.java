@@ -10,6 +10,8 @@ public class Commande {
     private  LocalDate dateCommande ;
     private float prix ;
     private int idClient ;
+    
+    
 	public Commande(int id, HashMap<Book, Integer> lb,float prix, int idClient) {
 		this.id = id;
 		this.lb = lb;

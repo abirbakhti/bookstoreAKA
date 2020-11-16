@@ -22,7 +22,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
-public class Commander extends JFrame {
+public class Panier extends JFrame {
 
 	private JPanel contentPane;
 	DefaultTableModel model;
@@ -36,7 +36,7 @@ public class Commander extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Commander frame = new Commander();
+					Panier frame = new Panier();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,8 +63,8 @@ public class Commander extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Commander() {
-		setTitle("Commander");
+	public Panier() {
+		setTitle("Panier");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);
 		contentPane = new JPanel();
@@ -74,13 +74,20 @@ public class Commander extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnRetour = new JButton("Retour");
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				close();
+				ChoisirLivre cl = new ChoisirLivre();
+				cl.setVisible(true);
+			}
+		});
 		btnRetour.setBounds(651, 385, 130, 46);
 		btnRetour.setForeground(Color.WHITE);
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnRetour.setBackground(new Color(0, 0, 139));
 		contentPane.add(btnRetour);
 		
-		JButton btnCommander = new JButton("Commander");
+		JButton btnCommander = new JButton("Panier");
 		btnCommander.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				close();
