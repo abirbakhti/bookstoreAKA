@@ -9,7 +9,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/karim/Documents/Formation Vermeg/Projet vermeg/bookstoreAKA/Jar/mysql-connector-java-5.1.48.jar">
+	<classpathentry kind="lib" path="C:/Users/Ahmed/Desktop/Formation Vermeg/bookstoreAKA/Jar/mysql-connector-java-5.1.48.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

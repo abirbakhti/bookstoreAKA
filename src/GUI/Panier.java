@@ -6,17 +6,24 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import ENTITIES.Book;
 
+import java.awt.Button;
 import java.awt.Color;
+import java.awt.Component;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+
 import java.awt.Font;
 import java.awt.TextField;
 import java.awt.Toolkit;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
@@ -24,16 +31,26 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
 
 public class Panier extends JFrame {
 
 	private JPanel contentPane;
 	DefaultTableModel model;
 	private JTable table;
-	private JTextField textField ;
-	
-	
-	
+	private JTextField textField= new JTextField();
+	private JButton buttonmoin = new JButton();
+	private JButton buttonplus = new JButton();
+	private JButton buttonEffacer = new JButton();
+	private Double prixt = 0.0;
+
 	/**
 	 * Launch the application.
 	 */
@@ -50,40 +67,136 @@ public class Panier extends JFrame {
 		});
 	}
 
-
 	public DefaultTableModel loadList() {
-		
-	
-		
-		String columns[] = {"Livre", "Prix", "Quantité"};
-		Object data[][] = new Object[ChoisirLivre.livreChoisi .size()][3];
+
+		String columns[] = {"Id","Livre", "Prix", "Quantité", "+", "-" ,"Effacer"};
+
+		Object data[][] = new Object[ChoisirLivre.livreChoisi.size()][4];
+
 		int x = 0;
-        Double prixt = 0.0 ;
-      
-		for (int j = 0; j < ChoisirLivre.livreChoisi .size(); j++) {
-		
-			data[x][0] =  ChoisirLivre.livreChoisi .get(j).getTitle();
-			data[x][1] = ChoisirLivre.livreChoisi .get(j).getPrice();
-			data[x][2] =1;
+		prixt=0.0;
+		for (int j = 0; j < ChoisirLivre.livreChoisi.size(); j++) {
+			data[x][0] = ChoisirLivre.livreChoisi.get(j).getId();
+			data[x][1] = ChoisirLivre.livreChoisi.get(j).getTitle();
+			data[x][2] = ChoisirLivre.livreChoisi.get(j).getPrice();
+			data[x][3] = 1;
 			
-			prixt = prixt +((Double)data[x][1] * (int) data[x][2]);
+			prixt = prixt + ((Double) data[x][2] * (int) data[x][3]);
 			x++;
-			
-			
+
 		}
-		textField = new JTextField();
-		textField.setText(String.valueOf(prixt)); 
+
+		textField.setText(String.valueOf(prixt));
 		return model = new DefaultTableModel(data, columns);
 	}
-	
+
 	public void close() {
 		WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
+	// button Remove
+		class ButtonRenderer3 extends JButton implements TableCellRenderer {
+			public ButtonRenderer3() {
+				setOpaque(true);
+			}
+
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+					int row, int column) {
+				setText((value == null) ? " Effacer " : value.toString());
+				return this;
+			}
+		}
+
+		class ButtonEditor3 extends DefaultCellEditor {
+			private String label;
+
+			public ButtonEditor3(JCheckBox checkBox) {
+				super(checkBox);
+			}
+
+			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+					int column) {
+				label = (value == null) ? " Effacer " : value.toString();
+				buttonEffacer.setText(label);
+				return buttonEffacer;
+			}
+
+			public Object getCellEditorValue() {
+				return new String(label);
+			}
+		}
+		// end button
+	
+	// button +
+	class ButtonRenderer extends JButton implements TableCellRenderer {
+		public ButtonRenderer() {
+			setOpaque(true);
+		}
+
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			setText((value == null) ? "+" : value.toString());
+			return this;
+		}
+	}
+
+	class ButtonEditor extends DefaultCellEditor {
+		private String label;
+
+		public ButtonEditor(JCheckBox checkBox) {
+			super(checkBox);
+		}
+
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+				int column) {
+			label = (value == null) ? "+" : value.toString();
+			buttonplus.setText(label);
+			return buttonplus;
+		}
+
+		public Object getCellEditorValue() {
+			return new String(label);
+		}
+	}
+	// end button
+
+	// button -
+	class ButtonRenderer1 extends JButton implements TableCellRenderer {
+		public ButtonRenderer1() {
+			setOpaque(true);
+		}
+
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			setText((value == null) ? "-" : value.toString());
+			return this;
+		}
+	}
+
+	class ButtonEditor1 extends DefaultCellEditor {
+		private String label;
+
+		public ButtonEditor1(JCheckBox checkBox) {
+			super(checkBox);
+		}
+
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+				int column) {
+			label = (value == null) ? "-" : value.toString();
+			buttonmoin.setText(label);
+			return buttonmoin;
+		}
+
+		public Object getCellEditorValue() {
+			return new String(label);
+		}
+	}
+
+	// end button
 	public Panier() {
 		setTitle("Panier");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -93,7 +206,7 @@ public class Panier extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,13 +215,13 @@ public class Panier extends JFrame {
 				cl.setVisible(true);
 			}
 		});
-		btnRetour.setBounds(651, 385, 130, 46);
+		btnRetour.setBounds(613, 354, 168, 46);
 		btnRetour.setForeground(Color.WHITE);
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnRetour.setBackground(new Color(0, 0, 139));
 		contentPane.add(btnRetour);
-		
-		JButton btnCommander = new JButton("Panier");
+
+		JButton btnCommander = new JButton("Commander");
 		btnCommander.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				close();
@@ -116,42 +229,102 @@ public class Panier extends JFrame {
 				formVal.setVisible(true);
 			}
 		});
-		btnCommander.setBounds(482, 385, 130, 46);
+		btnCommander.setBounds(613, 281, 168, 46);
 		btnCommander.setForeground(Color.WHITE);
 		btnCommander.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCommander.setBackground(new Color(0, 0, 139));
 		contentPane.add(btnCommander);
-		
+
 		JLabel lblVrifierVotreCommande = new JLabel("V\u00E9rifier votre commande");
 		lblVrifierVotreCommande.setBounds(244, 31, 368, 48);
 		lblVrifierVotreCommande.setForeground(new Color(0, 0, 139));
 		lblVrifierVotreCommande.setFont(new Font("Traditional Arabic", Font.BOLD | Font.ITALIC, 31));
 		contentPane.add(lblVrifierVotreCommande);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 107, 400, 324);
+		scrollPane.setBounds(25, 107, 554, 324);
 		contentPane.add(scrollPane);
-		
+
 		table = new JTable();
+
+		// load table
 		scrollPane.setViewportView(table);
 		table.setModel(loadList());
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		
+		
+		table.getColumn("+").setCellRenderer(new ButtonRenderer());
+		table.getColumn("+").setCellEditor(new ButtonEditor(new JCheckBox()));
+
+		table.getColumn("-").setCellRenderer(new ButtonRenderer1());
+		table.getColumn("-").setCellEditor(new ButtonEditor1(new JCheckBox()));
+		
+		table.getColumn("Effacer").setCellRenderer(new ButtonRenderer3());
+		table.getColumn("Effacer").setCellEditor(new ButtonEditor3(new JCheckBox()));
+		
+		//
 		JLabel lbPrixTotal = new JLabel("Prix total :");
-		lbPrixTotal.setBounds(482, 208, 100, 26);
+		lbPrixTotal.setBounds(613, 174, 100, 26);
 		contentPane.add(lbPrixTotal);
 		lbPrixTotal.setForeground(new Color(0, 0, 139));
 		lbPrixTotal.setFont(new Font("Tahoma", Font.BOLD, 16));
-		
-	
+
 		textField.setBounds(613, 210, 168, 26);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnRetirer = new JButton("Retirer");
-		btnRetirer.setBounds(565, 285, 130, 46);
-		contentPane.add(btnRetirer);
-		btnRetirer.setForeground(Color.WHITE);
-		btnRetirer.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnRetirer.setBackground(new Color(0, 0, 139));
+		
+		// action method Remove
+		buttonEffacer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				int i = table.getSelectedRow();
+				for(Book b : ChoisirLivre.livreChoisi)
+				{
+					if(b.getId()==Integer.parseInt(table.getValueAt(i, 0).toString())) {
+						ChoisirLivre.livreChoisi.remove(b);
+						table.setModel(loadList());
+						table.getColumn("+").setCellRenderer(new ButtonRenderer());
+						table.getColumn("+").setCellEditor(new ButtonEditor(new JCheckBox()));
+
+						table.getColumn("-").setCellRenderer(new ButtonRenderer1());
+						table.getColumn("-").setCellEditor(new ButtonEditor1(new JCheckBox()));
+						
+						table.getColumn("Effacer").setCellRenderer(new ButtonRenderer3());
+						table.getColumn("Effacer").setCellEditor(new ButtonEditor3(new JCheckBox()));
+					}
+				}
+			}
+		});
+		
+		
+		// action method +
+		buttonplus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				int i = table.getSelectedRow();
+				table.setValueAt(Integer.parseInt(table.getValueAt(i, 3).toString()) + 1, i, 3);
+				prixt = prixt + Double.parseDouble(table.getValueAt(i, 2).toString());
+				textField.setText(String.valueOf(prixt));
+				// JOptionPane.showMessageDialog(null,"plus");
+			}
+		});
+		
+		// action method -
+		buttonmoin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				int i = table.getSelectedRow();
+				if(Integer.parseInt(table.getValueAt(i, 3).toString())>1) {
+					table.setValueAt(Integer.parseInt(table.getValueAt(i, 3).toString()) - 1, i, 3);
+					prixt = prixt - Double.parseDouble(table.getValueAt(i, 2).toString());
+					textField.setText(String.valueOf(prixt));
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Quantite invalid ! ");
+				}
+				//JOptionPane.showMessageDialog(null, "moin");
+			}
+		});
+		
+
 	}
 }
