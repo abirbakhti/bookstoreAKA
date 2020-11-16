@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.DaoBook;
-import DAO.Singleton;
+
 
 import javax.swing.JTable;
 import javax.swing.ImageIcon;
@@ -23,15 +23,14 @@ import ENTITIES.Book;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
-import java.awt.Container;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 
 public class Lister extends JFrame {
 
@@ -46,7 +45,7 @@ public class Lister extends JFrame {
 	private JTextField textFieldAuteur;
 	private JTextField textFieldPrix;
 	private JTextField textFieldDate;
-	private JLabel test;
+
 	DefaultTableModel model;
 
 	private DaoBook dao = new DaoBook();
@@ -81,15 +80,22 @@ public class Lister extends JFrame {
 		l = dao.listBook();
 		Object data[][] = new Object[l.size()][6];
 		int x = 0;
-		ImageIcon image;
+
 		for (int i = 0; i < l.size(); i++) {
 			data[x][0] = String.valueOf(l.get(i).getId());
 			data[x][1] = l.get(i).getTitle();
 			data[x][2] = l.get(i).getAuthor();
 			data[x][3] = String.valueOf(l.get(i).getPrice());
 			data[x][4] = l.get(i).getReleaseDate();
-			image = new ImageIcon(l.get(i).getImage());
-			data[x][5] =image;
+			if (l.get(i).getImage() != null) {
+				
+				ImageIcon image = new ImageIcon(new ImageIcon(l.get(i).getImage()).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+				data[x][5] =image;
+				
+				
+			}else 
+				{data[x][5] =null;}
+			
 			
 			x++;
 		}

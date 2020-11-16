@@ -1,29 +1,22 @@
 package DAO;
 
-import java.awt.Image;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
+
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 
 import ENTITIES.Book;
 
 public class DaoBook {
-	/*
-	 * public static void main (String[] a) { Book b = new
-	 * Book(1,"hhhhh","hhhhh",148,"2000-05-05"); DaoBook bb = new DaoBook();
-	 * bb.deleteBook(b); }
-	 */
-	
+
 	  
-	/*********************************** Ajouter un livre 
-	 * @throws FileNotFoundException *****************************************/
+	/*********************************** Ajouter un livre  *****************************************/
 	public boolean addBook(Book book,String s) {
 		PreparedStatement stmt = null;
 		boolean test = false ;

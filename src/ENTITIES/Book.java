@@ -1,8 +1,6 @@
 package ENTITIES;
 
-import java.util.Date;
 
-import javax.swing.ImageIcon;
 
 public class Book {
 	private int id;
