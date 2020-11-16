@@ -8,18 +8,18 @@ public class Commande {
     private int id ;
     private HashMap<Book, Integer> lb = new HashMap<Book, Integer>();
     private  LocalDate dateCommande ;
-    private float prix ;
+    private Double prix ;
     private int idClient ;
     
     
-	public Commande(int id, HashMap<Book, Integer> lb,float prix, int idClient) {
+	public Commande(int id, HashMap<Book, Integer> lb,Double prix, int idClient) {
 		this.id = id;
 		this.lb = lb;
 		this.dateCommande =LocalDate.now();
 		this.prix = prix;
 		this.idClient = idClient;
 	}
-	public Commande(int id, HashMap<Book, Integer> lb,LocalDate dateCommande,float prix, int idClient) {
+	public Commande(int id, HashMap<Book, Integer> lb,LocalDate dateCommande,Double prix, int idClient) {
 		this.id = id;
 		this.lb = lb;
 		this.dateCommande =dateCommande;
@@ -44,10 +44,10 @@ public class Commande {
 	public void setDateCommande(LocalDate dateCommande) {
 		this.dateCommande = dateCommande;
 	}
-	public float getPrix() {
+	public Double getPrix() {
 		return prix;
 	}
-	public void setPrix(float prix) {
+	public void setPrix(Double prix) {
 		this.prix = prix;
 	}
 	public int getIdClient() {

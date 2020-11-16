@@ -31,7 +31,7 @@ public class DaoCommande {
 								+ c.getId() + "','" + i.getId() + "','" + c.getDateCommande() + "','" + lb.get(i)
 								+ "','" + c.getPrix() + "','" + c.getIdClient() + "');");
 
-				// int ajout = stmt.executeUpdate();
+				 int ajout = stmt.executeUpdate();
 			}
 
 		} catch (Exception e) {
@@ -39,17 +39,17 @@ public class DaoCommande {
 		}
 	}
 
-	public static List<Commande> listCommandeClient(int id) {
+	public static List<Commande> listCommandeClient() {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<Commande> l = new ArrayList<>();
 		
 		try {
-			stmt = Singleton.getConnection().prepareStatement("SELECT DISTINCT(idCommande), date,prix FROM `commande` WHERE idClient ="+id);
+			stmt = Singleton.getConnection().prepareStatement("SELECT DISTINCT(idCommande), date,prix FROM `commande` ");
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				Commande c = new Commande(rs.getInt("idCommande"),null,new java.sql.Date(rs.getDate("date") .getTime()).toLocalDate(),rs.getFloat("prix"),id);	
+				Commande c = new Commande(rs.getInt("idCommande"),null,new java.sql.Date(rs.getDate("date") .getTime()).toLocalDate(),rs.getDouble("prix"),0);	
 				l.add(c);
 			}
 		} catch (Exception e) {

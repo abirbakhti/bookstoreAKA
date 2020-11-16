@@ -5,6 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DAO.DaoClient;
+import DAO.DaoCommande;
+import ENTITIES.Client;
+import ENTITIES.Commande;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -25,6 +31,8 @@ public class FormulaireValidation extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	DaoCommande daoCommande = new DaoCommande();
+	DaoClient daoClient = new DaoClient();
 
 	/**
 	 * Launch the application.
@@ -95,6 +103,20 @@ public class FormulaireValidation extends JFrame {
 		panel.add(lbAdresse);
 		
 		JButton btnValider = new JButton("Valider");
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int id = daoClient.ajouterClient(new Client(0,textField.getText().toString(),textField_1.getText().toString(),
+						textField_2.getText().toString(),textField_3.getText().toString(),textField_4.getText().toString()));
+			    System.out.println(Panier.lb);
+			    System.out.println(Panier.prixt);
+				daoCommande.addCommande(new Commande(20,Panier.lb,Panier.prixt,id));
+				
+				close();
+				ListerCommande lc = new ListerCommande();
+				lc.setVisible(true);
+		
+			}
+		});
 		btnValider.setForeground(Color.WHITE);
 		btnValider.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnValider.setBackground(new Color(0, 0, 139));

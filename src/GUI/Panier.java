@@ -28,6 +28,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -49,7 +50,8 @@ public class Panier extends JFrame {
 	private JButton buttonmoin = new JButton();
 	private JButton buttonplus = new JButton();
 	private JButton buttonEffacer = new JButton();
-	private Double prixt = 0.0;
+	public static Double prixt = 0.0;
+	public static HashMap<Book, Integer> lb = new HashMap<Book, Integer>();
 
 	/**
 	 * Launch the application.
@@ -224,9 +226,19 @@ public class Panier extends JFrame {
 		JButton btnCommander = new JButton("Commander");
 		btnCommander.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				for (int i = 0 ;  i < table.getRowCount() ; i++)
+				{
+					Book b = new Book(Integer.parseInt(table.getValueAt(i, 0).toString()),table.getValueAt(i, 1).toString() ,null,0,null,null);
+					int qts = Integer.parseInt(table.getValueAt(i, 3).toString());
+					lb.put(b, qts);
+				}
+				
+				
 				close();
 				FormulaireValidation formVal = new FormulaireValidation();
 				formVal.setVisible(true);
+				
 			}
 		});
 		btnCommander.setBounds(613, 281, 168, 46);

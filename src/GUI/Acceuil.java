@@ -128,5 +128,19 @@ public class Acceuil extends JFrame {
 		panel.add(lbIconBook);
 		Image iconBook=new ImageIcon(this.getClass().getResource("/book.png")).getImage();
 		lbIconBook.setIcon(new ImageIcon(iconBook));
+		
+		JButton btnAjouterCommande = new JButton("Ajouter Commande");
+		btnAjouterCommande.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				close();
+				ListerCommande lc = new ListerCommande();
+				lc.setVisible(true);
+			}
+		});
+		btnAjouterCommande.setForeground(Color.WHITE);
+		btnAjouterCommande.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnAjouterCommande.setBackground(new Color(0, 0, 139));
+		btnAjouterCommande.setBounds(425, 398, 252, 47);
+		panel.add(btnAjouterCommande);
 	}
 }

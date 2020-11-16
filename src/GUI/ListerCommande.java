@@ -78,7 +78,7 @@ public class ListerCommande extends JFrame {
 		
 		//Object data[][] = new Object[2][3];
 		daoCommande= new DaoCommande();
-		List<Commande> listCommandeClient = daoCommande.listCommandeClient(1);
+		List<Commande> listCommandeClient = daoCommande.listCommandeClient();
 		
 		Object data[][] = new Object[listCommandeClient.size()][3];
 		int x = 0;
@@ -142,6 +142,13 @@ public class ListerCommande extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Retour");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				close();
+				Acceuil a = new Acceuil();
+				a.setVisible(true);
+			}
+		});
 		btnNewButton.setBackground(new Color(0, 0, 139));
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
