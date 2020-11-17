@@ -140,8 +140,8 @@ public class Lister extends JFrame {
 
 		// appel de la fonction
 		table.setModel(loadList());
-		table.setRowHeight(80);
-		table.getColumnModel().getColumn(5).setPreferredWidth(100);
+		table.setRowHeight(90);
+		table.getColumnModel().getColumn(5).setPreferredWidth(110);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(173, 216, 230));

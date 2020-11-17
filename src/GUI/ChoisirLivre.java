@@ -32,6 +32,10 @@ public class ChoisirLivre extends JFrame {
 	private JTable table;
 	DefaultTableModel model;
 	public static List<Livre> livreChoisi = new ArrayList<>();
+	private ImageIcon image;
+	private JLabel lblNewLabel = new JLabel();
+	//public static ChoisirLivre  frame ;
+
 
 	private DaoLivre dao = new DaoLivre();
 
@@ -60,37 +64,50 @@ public class ChoisirLivre extends JFrame {
 	 * Create the frame.
 	 */
 	public DefaultTableModel loadList() {
-		String columns[] = { "ID", "Titre", "Auteur", "Prix", "Date", "Check" };
+		String columns[] = { "Image","ID", "Titre", "Auteur", "Prix", "Date", "Check" };
 		List<Livre> l = new ArrayList<>();
 		l = dao.listBook();
 		Object data[][] = new Object[l.size()][7];
 		int x = 0;
 
 		for (int i = 0; i < l.size(); i++) {
+          
+			if (l.get(i).getImage() != null) {
 
-			data[x][0] = String.valueOf(l.get(i).getId());
-			data[x][1] = l.get(i).getTitle();
-			data[x][2] = l.get(i).getAuthor();
-			data[x][3] = String.valueOf(l.get(i).getPrice());
-			data[x][4] = l.get(i).getReleaseDate();
-			data[x][5] = (boolean) false;
+				image = new ImageIcon(
+						new ImageIcon(l.get(i).getImage()).getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH));
+				lblNewLabel.setIcon(image);
 
-			/*
-			 * if (l.get(i).getImage() != null) {
-			 * 
-			 * ImageIcon image = new ImageIcon(new
-			 * ImageIcon(l.get(i).getImage()).getImage().getScaledInstance(20, 20,
-			 * Image.SCALE_SMOOTH)); data[x][5] =image;
-			 * 
-			 * 
-			 * }else {data[x][5] =null;}
-			 * 
-			 */
+				data[x][0] = lblNewLabel.getIcon();
+
+			} else {
+				data[x][0] = null;
+			}
+			data[x][1] = String.valueOf(l.get(i).getId());
+			data[x][2] = l.get(i).getTitle();
+			data[x][3] = l.get(i).getAuthor();
+			data[x][4] = String.valueOf(l.get(i).getPrice());
+			data[x][5] = l.get(i).getReleaseDate();
+			boolean test = false ;
+			int j = 0 ;
+		    while (j < livreChoisi.size() && test == false){
+				if(livreChoisi.get(j).getId() ==(l.get(i).getId()))
+				{
+					
+					test = true;
+				}
+			   else 
+				j++;
+			}
+		    
+		    data[x][6] = (boolean) test;
+		     
+			
 			x++;
 		}
 
 		return model = new DefaultTableModel(data, columns) {
-			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class, String.class,
+			Class[] columnTypes = new Class[] { String.class,String.class, String.class, String.class, String.class, String.class,
 					Boolean.class };
 
 			public Class getColumnClass(int columnIndex) {
@@ -118,9 +135,18 @@ public class ChoisirLivre extends JFrame {
 		scrollPane.setBounds(29, 99, 748, 245);
 		panel.add(scrollPane);
 
-		table = new JTable();
+		table = new JTable(model) {
+			public Class getColumnClass(int colonne) {
+				return getValueAt(0, colonne).getClass();
+			}
+		};
 		table.setModel(loadList());
 		scrollPane.setViewportView(table);
+		table.setRowHeight(90);
+		table.getColumnModel().getColumn(5).setPreferredWidth(110);
+		table.getColumnModel().getColumn(1).setMinWidth(0);
+		table.getColumnModel().getColumn(1).setMaxWidth(0);
+		
 
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.addActionListener(new ActionListener() {
@@ -140,11 +166,12 @@ public class ChoisirLivre extends JFrame {
 		btnPanier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i < table.getRowCount(); i++) {
-					Boolean checked = Boolean.valueOf(table.getValueAt(i, 5).toString());
+					Boolean checked = Boolean.valueOf(table.getValueAt(i, 6).toString());
 					if (checked) {
-						Livre b = new Livre(Integer.parseInt(table.getValueAt(i, 0).toString()),
-								table.getValueAt(i, 1).toString(), null,
-								Double.parseDouble(table.getValueAt(i, 3).toString()), null, null);
+						
+						Livre b = new Livre(Integer.parseInt(table.getValueAt(i, 1).toString()),
+								table.getValueAt(i, 2).toString(), null,
+								Double.parseDouble(table.getValueAt(i, 4).toString()), null, null);
 						livreChoisi.add(b);
 					}
 				}

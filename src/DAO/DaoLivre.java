@@ -24,10 +24,7 @@ public class DaoLivre {
 		try {
 			File file = new File(s);
 			InputStream img = new FileInputStream(file);
-			/*stmt = Singleton.getConnection()
-					.prepareStatement("insert into book (title,author,price,releaseDate,image) " + "values('"
-							+ book.getTitle() + "','" + book.getAuthor() + "','"
-							+ book.getPrice() + "','" + book.getReleaseDate() + "','" + img + "')");*/
+			
 			stmt =
 					Singleton.getConnection().prepareStatement("insert into book (title,author,price,releaseDate,image) values(?,?,?,?,?)");
 				     

@@ -291,7 +291,19 @@ public class Panier extends JFrame {
 		buttonEffacer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				int i = table.getSelectedRow();
-				for(Livre b : ChoisirLivre.livreChoisi)
+				boolean test = false ;
+				int j = 0 ;
+				while (j < ChoisirLivre.livreChoisi.size() && test == false) {
+					if(ChoisirLivre.livreChoisi.get(i).getId()==Integer.parseInt(table.getValueAt(i, 0).toString())) {
+						
+							ChoisirLivre.livreChoisi.remove(i);
+						test=true;
+						}
+						else 
+							j++;
+						
+				}
+			/*	for(Livre b : ChoisirLivre.livreChoisi)
 				{
 					if(b.getId()==Integer.parseInt(table.getValueAt(i, 0).toString())) {
 						ChoisirLivre.livreChoisi.remove(b);
@@ -304,8 +316,17 @@ public class Panier extends JFrame {
 						
 						table.getColumn("Effacer").setCellRenderer(new ButtonRenderer3());
 						table.getColumn("Effacer").setCellEditor(new ButtonEditor3(new JCheckBox()));
-					}
-				}
+					}*/
+					table.setModel(loadList());
+					table.getColumn("+").setCellRenderer(new ButtonRenderer());
+					table.getColumn("+").setCellEditor(new ButtonEditor(new JCheckBox()));
+
+					table.getColumn("-").setCellRenderer(new ButtonRenderer1());
+					table.getColumn("-").setCellEditor(new ButtonEditor1(new JCheckBox()));
+					
+					table.getColumn("Effacer").setCellRenderer(new ButtonRenderer3());
+					table.getColumn("Effacer").setCellEditor(new ButtonEditor3(new JCheckBox()));	
+				
 			}
 		});
 		

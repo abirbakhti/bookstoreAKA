@@ -120,7 +120,7 @@ public class FormulaireValidation extends JFrame {
 		        }while (l.contains(n) == true) ;
 				
 		        daoCommande.addCommande(new Commande(n,Panier.lb,Panier.prixt,id));
-				
+				ChoisirLivre.livreChoisi.clear();
 				close();
 				ListerCommande lc = new ListerCommande();
 				lc.setVisible(true);
