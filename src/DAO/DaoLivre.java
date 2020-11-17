@@ -11,22 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import ENTITIES.Book;
+import ENTITIES.Livre;
 
-public class DaoBook {
+public class DaoLivre {
 
 	  
 	/*********************************** Ajouter un livre  *****************************************/
-	public boolean addBook(Book book,String s) {
+	public boolean addBook(Livre book,String s) {
 		PreparedStatement stmt = null;
 		boolean test = false ;
 	
 		try {
-			InputStream img = new FileInputStream(new File(s));
-			stmt = Singleton.getConnection()
+			File file = new File(s);
+			InputStream img = new FileInputStream(file);
+			/*stmt = Singleton.getConnection()
 					.prepareStatement("insert into book (title,author,price,releaseDate,image) " + "values('"
 							+ book.getTitle() + "','" + book.getAuthor() + "','"
-							+ book.getPrice() + "','" + book.getReleaseDate() + "','" + img + "')");
+							+ book.getPrice() + "','" + book.getReleaseDate() + "','" + img + "')");*/
+			stmt =
+					Singleton.getConnection().prepareStatement("insert into book (title,author,price,releaseDate,image) values(?,?,?,?,?)");
+				     
+			
+			stmt.setString(1,book.getTitle());
+			stmt.setString(2,book.getAuthor());
+			stmt.setDouble(3,book.getPrice());
+			stmt.setString(4,book.getReleaseDate()); 
+			stmt.setBinaryStream(5,(InputStream)img,(int)file.length());
+				      
+				
 			int ajout = stmt.executeUpdate();
 			if (ajout != 0)
 				test=true;
@@ -38,21 +50,17 @@ public class DaoBook {
 	
 
 	/*********************************** Lister un livre *****************************************/
-	public List<Book> listBook() {
+	public List<Livre> listBook() {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		List<Book> l = new ArrayList<>();
+		List<Livre> l = new ArrayList<>();
 		
 		try {
 			stmt = Singleton.getConnection().prepareStatement("select * from book");
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				//System.out.println(rs.getBytes(6) );
-				// rs.getString(3)+ " " + rs.getDouble(4)+ " " + rs.getDate(5));
-		
-				
-				Book b = new Book(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5), rs.getBytes(6) );
+				Livre b = new Livre(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5), rs.getBytes(6) );
 				l.add(b);
 			}
 		} catch (Exception e) {
@@ -62,7 +70,7 @@ public class DaoBook {
 	}
 
 	/*********************************** Modifier un livre *****************************************/
-	public boolean updateBook(Book book) {
+	public boolean updateBook(Livre book) {
 		String titrelivre = book.getTitle();
 		Double prix = book.getPrice();
 		String date = book.getReleaseDate();

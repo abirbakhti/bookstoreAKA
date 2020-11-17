@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import DAO.DaoBook;
-import ENTITIES.Book;
+import DAO.DaoLivre;
+import ENTITIES.Livre;
 
 public class Menu {
 
 	public static void main(String[] args) {
 		int x;
-		DaoBook Dao = new DaoBook();
+		DaoLivre Dao = new DaoLivre();
 		do {
 			System.out.println("Tapez (1) pour Lister  ");
 			System.out.println("Tapez (2) pour Ajouter : ");
@@ -30,7 +30,7 @@ public class Menu {
 			case 1: {
 
 				System.out.println("La liste des livres : ");
-				List<Book> listBook = new ArrayList<>();
+				List<Livre> listBook = new ArrayList<>();
 				listBook = Dao.listBook();
 				System.out.println(listBook);
 
@@ -49,7 +49,7 @@ public class Menu {
 				
 				String date = s.next();
 				
-				Dao.addBook(new Book(id,titre,auteur,prix,date,null),null);
+				Dao.addBook(new Livre(id,titre,auteur,prix,date,null),null);
 			}
 				break;
 			}

@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 
 
 
-import DAO.DaoBook;
-import ENTITIES.Book;
+import DAO.DaoLivre;
+import ENTITIES.Livre;
 
 import java.awt.Color;
 
@@ -34,7 +34,7 @@ public class Ajouter extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private DaoBook dao = new DaoBook();
+	private DaoLivre dao = new DaoLivre();
 	private JTextField textFieldTitre;
 	private JTextField textFieldAuteur;
 	private JTextField textFieldPrix;
@@ -121,7 +121,7 @@ public class Ajouter extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!textFieldTitre.getText().equals("") && !textFieldAuteur.getText().equals("")
 						&& !textFieldPrix.getText().equals("") && !textFieldDate.getText().equals("")) {
-					Book book = new Book(0, textFieldTitre.getText(), textFieldAuteur.getText(),
+					Livre book = new Livre(0, textFieldTitre.getText(), textFieldAuteur.getText(),
 							Double.parseDouble(textFieldPrix.getText()), textFieldDate.getText(),null);
 
 					if (dao.addBook(book,s)) {
@@ -205,6 +205,7 @@ public class Ajouter extends JFrame {
 					 ImageIcon finalImg = new ImageIcon(newImage);
 					 lblImage2  .setIcon(finalImg);
 					 s=path ;
+					 System.out.println(s);
 				 }else 
 				 {
 					 if (result== JFileChooser.CANCEL_OPTION)

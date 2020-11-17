@@ -7,8 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import DAO.DaoBook;
-
+import DAO.DaoLivre;
 
 import javax.swing.JTable;
 import javax.swing.ImageIcon;
@@ -19,7 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import ENTITIES.Book;
+import ENTITIES.Livre;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
@@ -30,7 +29,6 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
-
 
 public class Lister extends JFrame {
 
@@ -45,10 +43,10 @@ public class Lister extends JFrame {
 	private JTextField textFieldAuteur;
 	private JTextField textFieldPrix;
 	private JTextField textFieldDate;
-
+	private ImageIcon image;
+	private JLabel lblNewLabel = new JLabel();
 	DefaultTableModel model;
-
-	private DaoBook dao = new DaoBook();
+	private DaoLivre dao = new DaoLivre();
 
 	/**
 	 * Launch the application.
@@ -73,33 +71,34 @@ public class Lister extends JFrame {
 		WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
 	}
-    
+
 	public DefaultTableModel loadList() {
 		String columns[] = { "ID", "Titre", "Auteur", "Prix", "Date", "Image" };
-		List<Book> l = new ArrayList<>();
+		List<Livre> l = new ArrayList<>();
 		l = dao.listBook();
 		Object data[][] = new Object[l.size()][6];
-		int x = 0;
 
 		for (int i = 0; i < l.size(); i++) {
-			data[x][0] = String.valueOf(l.get(i).getId());
-			data[x][1] = l.get(i).getTitle();
-			data[x][2] = l.get(i).getAuthor();
-			data[x][3] = String.valueOf(l.get(i).getPrice());
-			data[x][4] = l.get(i).getReleaseDate();
+			data[i][0] = String.valueOf(l.get(i).getId());
+			data[i][1] = l.get(i).getTitle();
+			data[i][2] = l.get(i).getAuthor();
+			data[i][3] = String.valueOf(l.get(i).getPrice());
+			data[i][4] = l.get(i).getReleaseDate();
 			if (l.get(i).getImage() != null) {
-				
-				ImageIcon image = new ImageIcon(new ImageIcon(l.get(i).getImage()).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
-				data[x][5] =image;
-				
-				
-			}else 
-				{data[x][5] =null;}
-			
-			
-			x++;
+
+				image = new ImageIcon(
+						new ImageIcon(l.get(i).getImage()).getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH));
+				lblNewLabel.setIcon(image);
+
+				data[i][5] = lblNewLabel.getIcon();
+
+			} else {
+				data[i][5] = null;
+			}
+
 		}
 		return model = new DefaultTableModel(data, columns);
+
 	}
 
 	public Lister() {
@@ -115,9 +114,11 @@ public class Lister extends JFrame {
 		scrollPane.setBounds(329, 10, 472, 353);
 		contentPane.add(scrollPane);
 
-	
-
-		table = new JTable();
+		table = new JTable(model) {
+			public Class getColumnClass(int colonne) {
+				return getValueAt(0, colonne).getClass();
+			}
+		};
 		// selectioner une ligne du tableau
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -133,26 +134,14 @@ public class Lister extends JFrame {
 				textFieldAuteur.setEnabled(true);
 				textFieldPrix.setEnabled(true);
 				textFieldDate.setEnabled(true);
-/*
-				byte[] img = (byte[]) model.getValueAt(i, 5);
-
-				// String stringValue = "" + img + "]";
-
-				// img = stringValue.getBytes();
-				ImageIcon image = new ImageIcon(img);
-				Image im = image.getImage();
-				Image myImage = im.getScaledInstance(test.getWidth(), test.getHeight(), Image.SCALE_SMOOTH);
-				ImageIcon newImage = new ImageIcon(myImage);
-				test.setIcon(image);
-
-				ImageIcon icon = new ImageIcon(model.getValueAt(i, 5).toString());
-				test.setIcon(icon);*/
 			}
 		});
 		scrollPane.setViewportView(table);
 
 		// appel de la fonction
 		table.setModel(loadList());
+		table.setRowHeight(80);
+		table.getColumnModel().getColumn(5).setPreferredWidth(100);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(173, 216, 230));
@@ -290,7 +279,7 @@ public class Lister extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!textFieldTitre.getText().equals("") && !textFieldAuteur.getText().equals("")
 						&& !textFieldPrix.getText().equals("") && !textFieldDate.getText().equals("")) {
-					Book book = new Book(Integer.parseInt(textFieldId.getText()), textFieldTitre.getText(),
+					Livre book = new Livre(Integer.parseInt(textFieldId.getText()), textFieldTitre.getText(),
 							textFieldAuteur.getText(), Double.parseDouble(textFieldPrix.getText()),
 							textFieldDate.getText(), null);
 					int yy = JOptionPane.showConfirmDialog(null, "Vous voullez modifier ce livre !");
@@ -325,7 +314,6 @@ public class Lister extends JFrame {
 		btnRetour.setBounds(588, 388, 213, 46);
 		panel.add(btnRetour);
 
-		
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				close();

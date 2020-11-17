@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import ENTITIES.Book;
+import ENTITIES.Livre;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -51,7 +51,7 @@ public class Panier extends JFrame {
 	private JButton buttonplus = new JButton();
 	private JButton buttonEffacer = new JButton();
 	public static Double prixt = 0.0;
-	public static HashMap<Book, Integer> lb = new HashMap<Book, Integer>();
+	public static HashMap<Livre, Integer> lb = new HashMap<Livre, Integer>();
 
 	/**
 	 * Launch the application.
@@ -229,7 +229,7 @@ public class Panier extends JFrame {
 				
 				for (int i = 0 ;  i < table.getRowCount() ; i++)
 				{
-					Book b = new Book(Integer.parseInt(table.getValueAt(i, 0).toString()),table.getValueAt(i, 1).toString() ,null,0,null,null);
+					Livre b = new Livre(Integer.parseInt(table.getValueAt(i, 0).toString()),table.getValueAt(i, 1).toString() ,null,0,null,null);
 					int qts = Integer.parseInt(table.getValueAt(i, 3).toString());
 					lb.put(b, qts);
 				}
@@ -291,7 +291,7 @@ public class Panier extends JFrame {
 		buttonEffacer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				int i = table.getSelectedRow();
-				for(Book b : ChoisirLivre.livreChoisi)
+				for(Livre b : ChoisirLivre.livreChoisi)
 				{
 					if(b.getId()==Integer.parseInt(table.getValueAt(i, 0).toString())) {
 						ChoisirLivre.livreChoisi.remove(b);

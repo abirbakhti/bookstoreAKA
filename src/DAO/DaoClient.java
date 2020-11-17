@@ -2,11 +2,9 @@ package DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashMap;
 
-import ENTITIES.Book;
 import ENTITIES.Client;
-import ENTITIES.Commande;
+
 
 public class DaoClient {
 
@@ -24,7 +22,7 @@ public class DaoClient {
 						"INSERT INTO `client` (`nom`, `prenom`, `email`, `tel`, `adresse`) VALUES ('"+ c.getNom()+ "','" + c.getPrenom() + "','" + c.getEmail()
 								+ "','" + c.getTel() + "','" + c.getAdresse() + "');");
 
-				int ajout = stmt.executeUpdate();
+				 stmt.executeUpdate();
 				
 				stmt = Singleton.getConnection().prepareStatement("select id from client where email ='"+c.getEmail()+"'");
 				rs = stmt.executeQuery();

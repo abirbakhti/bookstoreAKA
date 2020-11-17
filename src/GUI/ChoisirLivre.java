@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import DAO.DaoBook;
-import ENTITIES.Book;
+import DAO.DaoLivre;
+import ENTITIES.Livre;
 
 import java.awt.Color;
 import javax.swing.JTable;
@@ -31,9 +31,9 @@ public class ChoisirLivre extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	DefaultTableModel model;
-	public static List<Book> livreChoisi = new ArrayList<>();
+	public static List<Livre> livreChoisi = new ArrayList<>();
 
-	private DaoBook dao = new DaoBook();
+	private DaoLivre dao = new DaoLivre();
 
 	/**
 	 * Launch the application.
@@ -61,7 +61,7 @@ public class ChoisirLivre extends JFrame {
 	 */
 	public DefaultTableModel loadList() {
 		String columns[] = { "ID", "Titre", "Auteur", "Prix", "Date", "Check" };
-		List<Book> l = new ArrayList<>();
+		List<Livre> l = new ArrayList<>();
 		l = dao.listBook();
 		Object data[][] = new Object[l.size()][7];
 		int x = 0;
@@ -142,7 +142,7 @@ public class ChoisirLivre extends JFrame {
 				for (int i = 0; i < table.getRowCount(); i++) {
 					Boolean checked = Boolean.valueOf(table.getValueAt(i, 5).toString());
 					if (checked) {
-						Book b = new Book(Integer.parseInt(table.getValueAt(i, 0).toString()),
+						Livre b = new Livre(Integer.parseInt(table.getValueAt(i, 0).toString()),
 								table.getValueAt(i, 1).toString(), null,
 								Double.parseDouble(table.getValueAt(i, 3).toString()), null, null);
 						livreChoisi.add(b);

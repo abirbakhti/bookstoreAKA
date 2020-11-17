@@ -2,13 +2,13 @@ package ENTITIES;
 
 
 
-public class Book {
+public class Livre {
 	private int id;
 	private String title, author;
 	private double price;
 	private String releaseDate;
 	private byte[] image ;
-	public Book(int id, String title, String author, double price, String releaseDate, byte[] bs) {
+	public Livre(int id, String title, String author, double price, String releaseDate, byte[] bs) {
 		this.id = id;
 		this.title = title;
 		this.author = author;

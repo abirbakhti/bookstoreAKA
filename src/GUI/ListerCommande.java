@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.DaoCommande;
-import ENTITIES.Book;
+import ENTITIES.Livre;
 import ENTITIES.Commande;
 
 import javax.swing.ImageIcon;
@@ -97,12 +97,12 @@ public class ListerCommande extends JFrame {
 		
 		
 		 int a = (int) data[i][0];
-		 HashMap<Book, Integer> lhm = new HashMap<Book, Integer>();
+		 HashMap<Livre, Integer> lhm = new HashMap<Livre, Integer>();
 		 lhm = daoCommande.listLivresCommande(a);
 		 Object data2[][] = new Object[lhm.size()][3];
 		 x = 0;
 
-			for (Book b : lhm.keySet()){
+			for (Livre b : lhm.keySet()){
 			
 				data2[x][0] =  b.getTitle();
 				data2[x][1] = lhm.get(b);
