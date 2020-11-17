@@ -187,7 +187,7 @@ public class ChoisirLivre extends JFrame {
 		btnPanier.setBounds(634, 383, 143, 53);
 		panel.add(btnPanier);
 
-		JLabel lblNewLabel = new JLabel("Choisir les livres ");
+		JLabel lblNewLabel = new JLabel("Choisir les livres");
 		lblNewLabel.setForeground(new Color(0, 0, 139));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 24));
 		lblNewLabel.setBounds(304, 26, 203, 38);

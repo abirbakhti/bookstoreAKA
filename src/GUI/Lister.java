@@ -199,7 +199,7 @@ public class Lister extends JFrame {
 				int i = table.getSelectedRow();
 
 				if (i >= 0) {
-					int y = JOptionPane.showConfirmDialog(null, "Vous voullez suppimer ce livre !");
+					int y = JOptionPane.showConfirmDialog(null, "Voulez-vous suppimer ce livre?");
 					if (y == 0) {
 						if (dao.deleteBook(Integer.parseInt(model.getValueAt(i, 0).toString()))) {
 
@@ -282,7 +282,7 @@ public class Lister extends JFrame {
 					Livre book = new Livre(Integer.parseInt(textFieldId.getText()), textFieldTitre.getText(),
 							textFieldAuteur.getText(), Double.parseDouble(textFieldPrix.getText()),
 							textFieldDate.getText(), null);
-					int yy = JOptionPane.showConfirmDialog(null, "Vous voullez modifier ce livre !");
+					int yy = JOptionPane.showConfirmDialog(null, "Voulez-vous modifier ce livre?");
 					if (yy == 0) {
 						if (dao.updateBook(book)) {
 							JOptionPane.showMessageDialog(null, "Livre modifié avec succès");

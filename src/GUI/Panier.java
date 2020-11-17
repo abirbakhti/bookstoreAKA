@@ -157,6 +157,8 @@ public class Panier extends JFrame {
 				int column) {
 			label = (value == null) ? "+" : value.toString();
 			buttonplus.setText(label);
+			Color  green   = new Color(0, 255,  0);
+			buttonplus.setBackground(green);
 			return buttonplus;
 		}
 
@@ -190,6 +192,8 @@ public class Panier extends JFrame {
 				int column) {
 			label = (value == null) ? "-" : value.toString();
 			buttonmoin.setText(label);
+			Color  red  = new Color(255, 0, 0);
+			buttonmoin.setBackground(red);
 			return buttonmoin;
 		}
 
@@ -352,7 +356,7 @@ public class Panier extends JFrame {
 					textField.setText(String.valueOf(prixt));
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Quantite invalid ! ");
+					JOptionPane.showMessageDialog(null, "Quantité invalide ! ");
 				}
 				//JOptionPane.showMessageDialog(null, "moin");
 			}

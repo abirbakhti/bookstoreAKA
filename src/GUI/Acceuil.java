@@ -98,7 +98,7 @@ public class Acceuil extends JFrame {
 			}
 		});
 		
-		btnAjout.setBounds(425, 185, 252, 47);
+		btnAjout.setBounds(423, 177, 252, 47);
 		panel.add(btnAjout);
 
 		JButton btnList = new JButton("Lister les livres\r\n");
@@ -114,17 +114,17 @@ public class Acceuil extends JFrame {
 			}
 		});
 		
-		btnList.setBounds(425, 292, 252, 47);
+		btnList.setBounds(423, 277, 252, 47);
 		panel.add(btnList);
 		
 		JLabel lbIconAdd = new JLabel("");
-		lbIconAdd.setBounds(385, 185, 40, 47);
+		lbIconAdd.setBounds(383, 177, 40, 47);
 		panel.add(lbIconAdd);
 		Image iconAdd=new ImageIcon(this.getClass().getResource("/addbook.png")).getImage();
 		lbIconAdd.setIcon(new ImageIcon(iconAdd));
 		
 		JLabel lbIconBook = new JLabel("");
-		lbIconBook.setBounds(383, 280, 50, 68);
+		lbIconBook.setBounds(373, 261, 50, 68);
 		panel.add(lbIconBook);
 		Image iconBook=new ImageIcon(this.getClass().getResource("/book.png")).getImage();
 		lbIconBook.setIcon(new ImageIcon(iconBook));
@@ -140,7 +140,13 @@ public class Acceuil extends JFrame {
 		btnAjouterCommande.setForeground(Color.WHITE);
 		btnAjouterCommande.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnAjouterCommande.setBackground(new Color(0, 0, 139));
-		btnAjouterCommande.setBounds(425, 398, 252, 47);
+		btnAjouterCommande.setBounds(423, 377, 252, 47);
 		panel.add(btnAjouterCommande);
+		
+		JLabel lbIconPanier = new JLabel("");
+		lbIconPanier.setBounds(373, 377, 50, 47);
+		panel.add(lbIconPanier);
+		Image iconPanier=new ImageIcon(this.getClass().getResource("/panier.png")).getImage();
+		lbIconPanier.setIcon(new ImageIcon(iconPanier));
 	}
 }

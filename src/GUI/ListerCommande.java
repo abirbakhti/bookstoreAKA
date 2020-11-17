@@ -72,7 +72,7 @@ public class ListerCommande extends JFrame {
 	public void loadList(int i ) 
 	{
 		
-		String columns[] = { "ID", "Date" ,"Prix Totale"};
+		String columns[] = { "ID", "Date" ,"Prix Total"};
 		
 		String columns1[] = { "Nom du livre", "Quantite " ,"Prix "};
 		
