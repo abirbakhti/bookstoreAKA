@@ -118,6 +118,7 @@ public class ChoisirLivre extends JFrame {
 	}
 
 	public ChoisirLivre() {
+		setTitle("Choisi les livres");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);
 		contentPane = new JPanel();
@@ -142,6 +143,7 @@ public class ChoisirLivre extends JFrame {
 		};
 		table.setModel(loadList());
 		scrollPane.setViewportView(table);
+
 		table.setRowHeight(90);
 		table.getColumnModel().getColumn(5).setPreferredWidth(110);
 		table.getColumnModel().getColumn(1).setMinWidth(0);
@@ -159,12 +161,13 @@ public class ChoisirLivre extends JFrame {
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnRetour.setForeground(Color.WHITE);
 		btnRetour.setBackground(new Color(0, 0, 139));
-		btnRetour.setBounds(29, 383, 143, 53);
+		btnRetour.setBounds(634, 369, 143, 53);
 		panel.add(btnRetour);
 
 		JButton btnPanier = new JButton("Panier");
 		btnPanier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ChoisirLivre.livreChoisi.clear();
 				for (int i = 0; i < table.getRowCount(); i++) {
 					Boolean checked = Boolean.valueOf(table.getValueAt(i, 6).toString());
 					if (checked) {
@@ -184,7 +187,7 @@ public class ChoisirLivre extends JFrame {
 		btnPanier.setForeground(Color.WHITE);
 		btnPanier.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnPanier.setBackground(new Color(0, 0, 139));
-		btnPanier.setBounds(634, 383, 143, 53);
+		btnPanier.setBounds(29, 369, 143, 53);
 		panel.add(btnPanier);
 
 		JLabel lblNewLabel = new JLabel("Choisir les livres");

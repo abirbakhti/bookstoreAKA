@@ -10,7 +10,7 @@ import javax.swing.table.TableCellRenderer;
 
 import ENTITIES.Livre;
 
-import java.awt.Button;
+
 import java.awt.Color;
 import java.awt.Component;
 
@@ -19,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
 import java.awt.Font;
-import java.awt.TextField;
+
 import java.awt.Toolkit;
 
 import javax.swing.JLabel;
@@ -29,20 +29,16 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
-import java.util.List;
+
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
 
 public class Panier extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	DefaultTableModel model;
 	private JTable table;
@@ -56,6 +52,7 @@ public class Panier extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -157,8 +154,7 @@ public class Panier extends JFrame {
 				int column) {
 			label = (value == null) ? "+" : value.toString();
 			buttonplus.setText(label);
-			Color  green   = new Color(0, 255,  0);
-			buttonplus.setBackground(green);
+		
 			return buttonplus;
 		}
 
@@ -204,6 +200,9 @@ public class Panier extends JFrame {
 
 	// end button
 	public Panier() {
+		
+		
+		
 		setTitle("Panier");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);
@@ -221,7 +220,7 @@ public class Panier extends JFrame {
 				cl.setVisible(true);
 			}
 		});
-		btnRetour.setBounds(613, 354, 168, 46);
+		btnRetour.setBounds(613, 385, 168, 46);
 		btnRetour.setForeground(Color.WHITE);
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnRetour.setBackground(new Color(0, 0, 139));
@@ -245,7 +244,7 @@ public class Panier extends JFrame {
 				
 			}
 		});
-		btnCommander.setBounds(613, 281, 168, 46);
+		btnCommander.setBounds(613, 313, 168, 46);
 		btnCommander.setForeground(Color.WHITE);
 		btnCommander.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCommander.setBackground(new Color(0, 0, 139));
@@ -268,11 +267,14 @@ public class Panier extends JFrame {
 		table.setModel(loadList());
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		table.setRowHeight(30);
+		table.getColumnModel().getColumn(5).setPreferredWidth(50);
 		
 		
 		table.getColumn("+").setCellRenderer(new ButtonRenderer());
 		table.getColumn("+").setCellEditor(new ButtonEditor(new JCheckBox()));
-
+		Color  green   = new Color(0, 255,  0);
+		buttonplus.setBackground(green);
 		table.getColumn("-").setCellRenderer(new ButtonRenderer1());
 		table.getColumn("-").setCellEditor(new ButtonEditor1(new JCheckBox()));
 		
@@ -281,12 +283,12 @@ public class Panier extends JFrame {
 		
 		//
 		JLabel lbPrixTotal = new JLabel("Prix total :");
-		lbPrixTotal.setBounds(613, 174, 100, 26);
+		lbPrixTotal.setBounds(613, 107, 100, 26);
 		contentPane.add(lbPrixTotal);
 		lbPrixTotal.setForeground(new Color(0, 0, 139));
 		lbPrixTotal.setFont(new Font("Tahoma", Font.BOLD, 16));
 
-		textField.setBounds(613, 210, 168, 26);
+		textField.setBounds(613, 144, 168, 39);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		

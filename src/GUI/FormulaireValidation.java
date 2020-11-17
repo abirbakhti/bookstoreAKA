@@ -151,7 +151,7 @@ public class FormulaireValidation extends JFrame {
 		JLabel lbAjouterCoordonnees = new JLabel("Ajouter vos coordonn\u00E9es");
 		lbAjouterCoordonnees.setForeground(new Color(0, 0, 139));
 		lbAjouterCoordonnees.setFont(new Font("Traditional Arabic", Font.BOLD | Font.ITALIC, 31));
-		lbAjouterCoordonnees.setBounds(355, 40, 368, 48);
+		lbAjouterCoordonnees.setBounds(341, 35, 670, 48);
 		contentPane.add(lbAjouterCoordonnees);
 		
 		textField = new JTextField();

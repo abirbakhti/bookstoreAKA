@@ -127,6 +127,7 @@ public class ListerCommande extends JFrame {
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
 	}
 	public ListerCommande() {
+		setTitle("Liste des commandes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);
 		contentPane = new JPanel();

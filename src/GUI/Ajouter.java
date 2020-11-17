@@ -132,7 +132,7 @@ public class Ajouter extends JFrame {
 						textFieldDate.setText("");
 						lblImage2.setIcon(null);
 					} else {
-						JOptionPane.showMessageDialog(null, "Vérfifier les données");
+						JOptionPane.showMessageDialog(null, "Vérifier les données");
 					}
 
 				} else {
