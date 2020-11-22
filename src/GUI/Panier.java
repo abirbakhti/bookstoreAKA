@@ -76,8 +76,8 @@ public class Panier extends JFrame {
 		prixt=0.0;
 		for (int j = 0; j < ChoisirLivre.livreChoisi.size(); j++) {
 			data[x][0] = ChoisirLivre.livreChoisi.get(j).getId();
-			data[x][1] = ChoisirLivre.livreChoisi.get(j).getTitle();
-			data[x][2] = ChoisirLivre.livreChoisi.get(j).getPrice();
+			data[x][1] = ChoisirLivre.livreChoisi.get(j).getTitre();
+			data[x][2] = ChoisirLivre.livreChoisi.get(j).getPrix();
 			data[x][3] = 1;
 			
 			prixt = prixt + ((Double) data[x][2] * (int) data[x][3]);
@@ -200,6 +200,7 @@ public class Panier extends JFrame {
 
 	// end button
 	public Panier() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\karim\\Downloads\\l3.jpg"));
 		
 		
 		

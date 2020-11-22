@@ -1,6 +1,6 @@
 package GUI;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -66,7 +66,7 @@ public class ChoisirLivre extends JFrame {
 	public DefaultTableModel loadList() {
 		String columns[] = { "Image","ID", "Titre", "Auteur", "Prix", "Date", "Check" };
 		List<Livre> l = new ArrayList<>();
-		l = dao.listBook();
+		l = dao.listLivre();
 		Object data[][] = new Object[l.size()][7];
 		int x = 0;
 
@@ -84,10 +84,10 @@ public class ChoisirLivre extends JFrame {
 				data[x][0] = null;
 			}
 			data[x][1] = String.valueOf(l.get(i).getId());
-			data[x][2] = l.get(i).getTitle();
-			data[x][3] = l.get(i).getAuthor();
-			data[x][4] = String.valueOf(l.get(i).getPrice());
-			data[x][5] = l.get(i).getReleaseDate();
+			data[x][2] = l.get(i).getTitre();
+			data[x][3] = l.get(i).getAuteur();
+			data[x][4] = String.valueOf(l.get(i).getPrix());
+			data[x][5] = l.get(i).getDateSortie();
 			boolean test = false ;
 			int j = 0 ;
 		    while (j < livreChoisi.size() && test == false){
@@ -118,6 +118,7 @@ public class ChoisirLivre extends JFrame {
 	}
 
 	public ChoisirLivre() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\karim\\Downloads\\l3.jpg"));
 		setTitle("Choisi les livres");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);

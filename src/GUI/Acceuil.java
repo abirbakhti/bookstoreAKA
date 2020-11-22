@@ -52,6 +52,7 @@ public class Acceuil extends JFrame {
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
 	}
 	public Acceuil() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\karim\\Downloads\\l3.jpg"));
 		setTitle("Acceuil");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);

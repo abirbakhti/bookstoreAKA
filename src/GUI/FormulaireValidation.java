@@ -26,6 +26,10 @@ import java.awt.event.ActionEvent;
 
 public class FormulaireValidation extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final JPanel panel = new JPanel();
 	private JTextField textField;
@@ -61,6 +65,7 @@ public class FormulaireValidation extends JFrame {
 	 * Create the frame.
 	 */
 	public FormulaireValidation() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\karim\\Downloads\\l3.jpg"));
 		setTitle("Valider");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);
@@ -119,7 +124,7 @@ public class FormulaireValidation extends JFrame {
 		         n = r.nextInt(99999);
 		        }while (l.contains(n) == true) ;
 				
-		        daoCommande.addCommande(new Commande(n,Panier.lb,Panier.prixt,id));
+		        daoCommande.ajouterCommande(new Commande(n,Panier.lb,Panier.prixt,id));
 				ChoisirLivre.livreChoisi.clear();
 				close();
 				ListerCommande lc = new ListerCommande();

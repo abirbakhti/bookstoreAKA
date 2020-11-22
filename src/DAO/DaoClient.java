@@ -2,11 +2,14 @@ package DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import ENTITIES.Client;
 
 
 public class DaoClient {
+	
+	/*********************************** Ajouter un client *****************************************/
 
 	public int ajouterClient(Client c) {
 		PreparedStatement stmt = null;
@@ -37,6 +40,15 @@ public class DaoClient {
 
 		} catch (Exception e) {
 			System.out.println(e);
+		}finally {
+			try {
+				Singleton.getConnection().close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		return id ;
 	}

@@ -17,7 +17,7 @@ public class DaoLivre {
 
 	  
 	/*********************************** Ajouter un livre  *****************************************/
-	public boolean addBook(Livre book,String s) {
+	public boolean ajouterLivre(Livre book,String s) {
 		PreparedStatement stmt = null;
 		boolean test = false ;
 	
@@ -26,13 +26,13 @@ public class DaoLivre {
 			InputStream img = new FileInputStream(file);
 			
 			stmt =
-					Singleton.getConnection().prepareStatement("insert into book (title,author,price,releaseDate,image) values(?,?,?,?,?)");
+					Singleton.getConnection().prepareStatement("insert into livre (title,author,price,releaseDate,image) values(?,?,?,?,?)");
 				     
 			
-			stmt.setString(1,book.getTitle());
-			stmt.setString(2,book.getAuthor());
-			stmt.setDouble(3,book.getPrice());
-			stmt.setString(4,book.getReleaseDate()); 
+			stmt.setString(1,book.getTitre());
+			stmt.setString(2,book.getAuteur());
+			stmt.setDouble(3,book.getPrix());
+			stmt.setString(4,book.getDateSortie()); 
 			stmt.setBinaryStream(5,(InputStream)img,(int)file.length());
 				      
 				
@@ -47,13 +47,13 @@ public class DaoLivre {
 	
 
 	/*********************************** Lister un livre *****************************************/
-	public List<Livre> listBook() {
+	public List<Livre> listLivre() {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<Livre> l = new ArrayList<>();
 		
 		try {
-			stmt = Singleton.getConnection().prepareStatement("select * from book");
+			stmt = Singleton.getConnection().prepareStatement("select * from livre");
 			rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -67,21 +67,21 @@ public class DaoLivre {
 	}
 
 	/*********************************** Modifier un livre *****************************************/
-	public boolean updateBook(Livre book) {
-		String titrelivre = book.getTitle();
-		Double prix = book.getPrice();
-		String date = book.getReleaseDate();
-		String auteur = book.getAuthor();
-		
+	public boolean modifierLivre(Livre book) {
+		String titrelivre = book.getTitre();
+		Double prix = book.getPrix();
+		String date = book.getDateSortie();
+		String auteur = book.getAuteur();
+		Statement st = null ;
 
 		boolean t = false;
 
 		try {
 			Connection cc = null;
 			cc = Singleton.getConnection();
-			Statement st = cc.createStatement();
+		    st = cc.createStatement();
 
-			String requete = "  UPDATE book SET  title = '" + titrelivre + "',author = '" + auteur + "', price= '"
+			String requete = "  UPDATE livre SET  title = '" + titrelivre + "',author = '" + auteur + "', price= '"
 					+ prix + "',releaseDate = '" + date + "' WHERE id= '" + book.getId() + "'";
 
 			st.executeUpdate(requete);
@@ -93,16 +93,16 @@ public class DaoLivre {
 	}
 
 	/*********************************** Supprimer un livre *****************************************/
-	public boolean deleteBook(int id) {
+	public boolean supprimerLivre(int id) {
 
 		boolean t = false;
-
+		Statement st = null;
 		try {
 			Connection cc = null;
 			cc = Singleton.getConnection();
-			Statement st = cc.createStatement();
+			st = cc.createStatement();
 
-			String requete = "DELETE FROM book where id='" + id + "'";
+			String requete = "DELETE FROM livre where id='" + id + "'";
 
 			st.executeUpdate(requete);
 			t = true;

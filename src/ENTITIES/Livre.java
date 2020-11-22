@@ -1,32 +1,22 @@
 package ENTITIES;
 
-
+import java.util.Arrays;
 
 public class Livre {
 	private int id;
-	private String title, author;
-	private double price;
-	private String releaseDate;
-	private byte[] image ;
-	public Livre(int id, String title, String author, double price, String releaseDate, byte[] bs) {
+	private String titre, auteur;
+	private double prix;
+	private String dateSortie;
+	private byte[] image;
+
+	public Livre(int id, String titre, String auteur, double prix, String dateSortie, byte[] image) {
 		this.id = id;
-		this.title = title;
-		this.author = author;
-		this.price = price;
-		this.releaseDate = releaseDate;
-		this.image = bs ;
-	}
-
-	
-	public byte[] getImage() {
-		return image;
-	}
-
-
-	public void setImage(byte[] image) {
+		this.titre = titre;
+		this.auteur = auteur;
+		this.prix = prix;
+		this.dateSortie = dateSortie;
 		this.image = image;
 	}
-
 
 	public int getId() {
 		return id;
@@ -36,42 +26,50 @@ public class Livre {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getTitre() {
+		return titre;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTitre(String titre) {
+		this.titre = titre;
 	}
 
-	public String getAuthor() {
-		return author;
+	public String getAuteur() {
+		return auteur;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
 	}
 
-	public double getPrice() {
-		return price;
+	public double getPrix() {
+		return prix;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPrix(double prix) {
+		this.prix = prix;
 	}
 
-	public String getReleaseDate() {
-		return releaseDate;
+	public String getDateSortie() {
+		return dateSortie;
 	}
 
-	public void setReleaseDate(String releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setDateSortie(String dateSortie) {
+		this.dateSortie = dateSortie;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", price=" + price + ", releaseDate="
-				+ releaseDate + "]";
+		return "Livre [id=" + id + ", titre=" + titre + ", auteur=" + auteur + ", prix=" + prix + ", dateSortie="
+				+ dateSortie + ", image=" + Arrays.toString(image) + "]";
 	}
 	
 

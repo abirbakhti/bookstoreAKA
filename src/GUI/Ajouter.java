@@ -66,6 +66,7 @@ public class Ajouter extends JFrame {
 	}
 	
 	public Ajouter() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\karim\\Downloads\\l3.jpg"));
 		setTitle("Ajouter");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);
@@ -121,10 +122,10 @@ public class Ajouter extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!textFieldTitre.getText().equals("") && !textFieldAuteur.getText().equals("")
 						&& !textFieldPrix.getText().equals("") && !textFieldDate.getText().equals("")) {
-					Livre book = new Livre(0, textFieldTitre.getText(), textFieldAuteur.getText(),
+					Livre livre = new Livre(0, textFieldTitre.getText(), textFieldAuteur.getText(),
 							Double.parseDouble(textFieldPrix.getText()), textFieldDate.getText(),null);
 
-					if (dao.addBook(book,s)) {
+					if (dao.ajouterLivre(livre,s)) {
 						JOptionPane.showMessageDialog(null, "Livre ajouté avec succès");
 						textFieldTitre.setText("");
 						textFieldAuteur.setText("");

@@ -78,7 +78,7 @@ public class ListerCommande extends JFrame {
 		
 		//Object data[][] = new Object[2][3];
 		daoCommande= new DaoCommande();
-		List<Commande> listCommandeClient = daoCommande.listCommandeClient();
+		List<Commande> listCommandeClient = daoCommande.listCommandesClient();
 		
 		Object data[][] = new Object[listCommandeClient.size()][3];
 		int x = 0;
@@ -104,9 +104,9 @@ public class ListerCommande extends JFrame {
 
 			for (Livre b : lhm.keySet()){
 			
-				data2[x][0] =  b.getTitle();
+				data2[x][0] =  b.getTitre();
 				data2[x][1] = lhm.get(b);
-				data2[x][2] =b.getPrice();
+				data2[x][2] =b.getPrix();
 				x++;
 			//	System.out.println(b.getTitle()+" "+lhm.get(b)+" "+b.getPrice());
 			}
@@ -127,6 +127,7 @@ public class ListerCommande extends JFrame {
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
 	}
 	public ListerCommande() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\karim\\Downloads\\l3.jpg"));
 		setTitle("Liste des commandes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 825, 495);

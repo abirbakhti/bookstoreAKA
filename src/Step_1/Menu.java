@@ -1,14 +1,10 @@
+package Step_1;
 
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+
 import java.util.Scanner;
 
 import DAO.DaoLivre;
@@ -31,7 +27,7 @@ public class Menu {
 
 				System.out.println("La liste des livres : ");
 				List<Livre> listBook = new ArrayList<>();
-				listBook = Dao.listBook();
+				listBook = Dao.listLivre();
 				System.out.println(listBook);
 
 			}
@@ -49,7 +45,7 @@ public class Menu {
 				
 				String date = s.next();
 				
-				Dao.addBook(new Livre(id,titre,auteur,prix,date,null),null);
+				Dao.ajouterLivre(new Livre(id,titre,auteur,prix,date,null),null);
 			}
 				break;
 			}
